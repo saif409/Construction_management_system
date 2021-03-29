@@ -1,0 +1,155 @@
+{% include 'header.html' %}
+{% load static %}
+
+<div class="main-content" id="panel" style="margin-top:5px;">
+    <div class="col-lg-12">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert alert-primary" {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                {{ message}}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+
+    <!-- Page content -->
+    <div class="container-fluid mt--6" style="margin-top:30px; padding-bottom: 50px">
+        <div class="row">
+
+            <div class="col-xl-12 order-xl-1">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <h3 class="mb-0">Add Supplier</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="pl-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Supplier Name<span style="color:red;">*</span></label>
+                                            <input type="text" name="name" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Supplier Email&nbsp;<span style="color:red;">*</span></label>
+                                            <input type="text" name="email" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Supplier Phone<span style="color:red;">*</span></label>
+                                            <input type="text" name="phone" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Supplier Adress<span style="color:red;">*</span></label>
+                                            <input type="text" name="address" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label>Comments<span style="color:red;">*</span></label>
+                                            <textarea name="comments" id="" cols="30" rows="5" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-info float-right" type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-xl-12 order-xl-1" style="margin-top:30px; padding-bottom: 100px">
+    <div class="card">
+        <div class="card-header">
+            <div class="row align-items-center">
+                <div class="col-8">
+                    <h3 class="mb-0">Supplier List</h3>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush" id="addCountry">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col" class="sort" data-sort="SL NO">SN</th>
+                        <th scope="col" class="sort" data-sort="title">Supplier Name</th>
+                        <th scope="col" class="sort" data-sort="title">Supplier Address</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+
+                    <tbody class="list">
+                    {% for s in supplier %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ s.name }}<br>
+                            <small>{{ s.created_date }}</small>
+                        </td>
+                        <td>{{ s.address }}</td>
+                        <td style="width: 10%">
+                            <div class="btn-group">
+                                <a href="{% url 'update_supplier' id=s.id %}"><button class="btn btn-info fa fa-edit" style="margin-right: 5px"></button></a>
+                                <a href="" data-toggle="modal" id="{{s.id}}" data-target="#surve_delete{{s.id}}">
+                                    <button class="btn btn-danger fa fa-trash"></button></a>
+                            </div>
+                        </td>
+
+                    </tr>
+                    <div class="modal fade" id="surve_delete{{s.id}}" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Are you sure about deleting the following Object?</h5>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">{{ s.name}}</div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-danger" type="button" data-dismiss="modal">Cancel</button>
+                                    <a class="btn btn-primary" href="{% url 'remove_supplier' id=s.id %}">Confirm Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+{% include 'footer.html' %}
+
+

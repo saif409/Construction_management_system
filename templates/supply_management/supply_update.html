@@ -1,0 +1,59 @@
+{% include 'header.html' %}
+{% load static %}
+<div class="container-fluid" style="margin-top: 40px;">
+    <div class="card">
+
+        <div class="card-header bg-primary">
+            <h3>Supply Details</h3>
+        </div>
+        <div class="card-header">
+            <form method="POST">
+                {% csrf_token %}
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <th>Supplier Company Name</th>
+                        <td>
+                            <select name="supplier_company_name" class="form-control">
+                                {% for supplier in supplier_obj %}
+                                <option value="{{ supplier.name }}">{{ supplier.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Lot No</th>
+                        <td><input class="form-control" type="text" value="{{obj.lot_no}}"
+                                   name="lot_no"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Material</th>
+                        <td><input type="text" class="form-control" value="{{obj.material}}"
+                                   name="material"/></td>
+                    </tr>
+
+                    <tr>
+                        <th>Quantity</th>
+                        <td><input type="text" class="form-control" value="{{obj.quantity}}" name="quantity"/></td>
+                    </tr>
+
+                    <tr>
+                        <th>Unit Price</th>
+                        <td><input class="form-control" type="text" value="{{obj.unit_price}}"
+                                   name="unit_price"/></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <button class="btn btn-primary float-right" type="submit">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+
+

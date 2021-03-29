@@ -1,0 +1,63 @@
+{% include 'header.html' %}
+{% load static %}
+<div class="container-fluid" style="margin-top: 40px;">
+    <div class="card">
+        
+        <div class="card-header bg-primary">
+            <h3>Supply Details</h3>
+        </div>
+        <div class="card-header">
+             <table class="table table-bordered">
+    <tbody>
+    <tr>
+        <th>Supplier Company Name</th>
+        <td><input type="text" class="form-control" value="{{obj.supplier_company_name}}" /></td>
+    </tr>
+
+
+    <tr>
+        <th>Lot No</th>
+        <td><input disabled class="form-control" type="text" value="{{obj.lot_no}}"
+                   name="update_username"/>
+        </td>
+    </tr>
+
+
+    <tr>
+        <th>Material</th>
+        <td><input type="text" class="form-control" value="{{obj.material }}"
+                   name="update_email"/></td>
+    </tr>
+
+
+
+    <tr>
+        <th>Quantity</th>
+        <td><input type="text" class="form-control" value="{{obj.quantity}}" name="update_contactno"/></td>
+    </tr>
+
+
+    <tr>
+        <th>Unit Price</th>
+        <td><input class="form-control" type="text" value="{{obj.unit_price}}"
+                   name="update_newpass"/></td>
+    </tr>
+
+
+    <tr>
+        <th>Date</th>
+        <td><input class="form-control" type="text" value="{{obj.created_date}}"
+                   name="update_newpass"/></td>
+    </tr>
+
+    </tbody>
+
+
+</table>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+
+

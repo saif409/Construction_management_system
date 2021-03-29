@@ -1,0 +1,83 @@
+{% include 'header.html' %}
+{% load static %}
+
+<div class="main-content" id="panel" style="margin-top:5px;">
+    <div class="col-lg-12">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert alert-primary" {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                {{ message}}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+
+    <!-- Page content -->
+    <div class="container-fluid mt--6" style="margin-top:30px; padding-bottom: 50px">
+        <div class="row">
+
+            <div class="col-xl-12 order-xl-1">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <h3 class="mb-0">Update Supplier</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="pl-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Supplier Name<span style="color:red;">*</span></label>
+                                            <input type="text" name="name" class="form-control" required value="{{ supplier.name }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Supplier Email&nbsp;<span style="color:red;">*</span></label>
+                                            <input type="text" name="email" class="form-control" required value="{{ supplier.email }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Supplier Phone<span style="color:red;">*</span></label>
+                                            <input type="text" name="phone" class="form-control" required value="{{ supplier.phone }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Supplier Adress<span style="color:red;">*</span></label>
+                                            <input type="text" name="address" class="form-control" required value="{{ supplier.address }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label>Comments<span style="color:red;">*</span></label>
+                                            <textarea name="comments" id="" cols="30" rows="5" class="form-control">{{ supplier.comments }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-info float-right" type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+
+

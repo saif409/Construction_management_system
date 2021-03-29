@@ -1,0 +1,101 @@
+{% include 'header.html' %}
+{% load static %}
+
+<div class="main-content" id="panel" style="margin-top:10px;">
+    {% if messages %}
+    <div class="messages" style="margin-right:32px;">
+        {% for message in messages %}
+        <div class="alert alert-primary" {% if message.tags %}
+             class="{{ message.tags }}" {% endif %}>{{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="row container-fluid">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        <div class="row align-items-center">
+                            <h4 class="text-blod" style="padding-left:20px;">Site Manager Request List</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="margin-top:30px;">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <div class="col-lg-offset-6">
+                                    <a class="mr-2  btn btn-primary btn-sm float-right" href="{% url 'site_manager_request_list' filter='Approve' %}"><i class="fa fa-hand-o-right" style="color:yellow;"></i>&nbsp;Approved</a>
+                                </div>
+                                <div class="col-lg-offset-6">
+                                    <a class="mr-2  btn btn-primary btn-sm float-right" href="{% url 'site_manager_request_list' filter='Pending' %}"><i class="fa fa-times" style="color:darkred;"></i>&nbsp;Pending</a>
+                                </div>
+                                <div class="col-lg-offset-6">
+                                    <a class="mr-2  btn btn-primary btn-sm float-right" href="{% url 'site_manager_request_list' filter='None' %}"><i class="fa fa-list" style="color:#fff;"></i>&nbsp;All</a>
+                                </div>
+                                <div class="col-lg-offset-6">
+                                    <a class="mr-2  btn btn-primary btn-sm float-right" href="{% url 'site_manager_request' %}"><i class="fa fa-plus-circle" style="color:#007bff;"></i>&nbsp;Add New Request</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-fluid mt-2">
+
+                        <div class="table-responsive">
+
+                                <table class="table align-items-center table-flush" id="surveyorList">
+                                    <thead class="thead-light mt-4">
+                                    <tr>
+                                        <th data-sort="name">Sl no</th>
+                                        <th data-sort="name">Manager Name</th>
+                                        <th data-sort="name">Category</th>
+                                        <th data-sort="name">Material</th>
+                                        <th data-sort="name">Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="list">
+                                    {% for obj in obj %}
+                                    <tr>
+                                        <th scope="row"><span class="name mb-0 text-sm">{{ forloop.counter }}</span></th>
+                                        <td>
+                                            <span class="status">{{ obj.site_manager}}</span><br>
+                                            <small style="color:#fff;background-color:#e8583f;border-radius: 10px;padding-left:5px;padding-right:5px;">{{ obj.created_date }}</small>
+                                        </td>
+                                        <td>
+                                            <span class="status">{{ obj.category }}</span><br>
+                                            <small>At Company Name</small>
+                                        </td>
+                                        <td>
+                                            <span class="status">{{ obj.material }}</span>
+                                        </td>
+                                        <td>
+                                            {% if obj.is_approved == True %}
+                                                <span class="status badge badge-primary">Approved</span>
+                                            {% else %}
+                                                <span class="status badge badge-danger">Pending</span>
+                                            {% endif %}
+                                        </td>
+                                        <td style="width: 10%">
+                                            <div class="btn-group">
+                                                <a href="" style="margin-right: 5px;"><button class="btn btn-primary fa fa-eye"></button></a>
+                                                <a href="" style="margin-right: 5px;"><button class="btn btn-info fa fa-edit"></button></a>
+                                                <a href="{% url 'site_manager_request_delete' id=obj.id %}" style="margin-right: 5px;"><button class="btn btn-danger fa fa-trash"></button></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+
