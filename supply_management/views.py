@@ -3,7 +3,7 @@ from django.shortcuts import render,get_object_or_404, redirect
 from django.contrib import messages
 from django.views.generic.base import View
 
-from .models import Supply, Supplier, Stock,Material
+from .models import Supply, Supplier, Stock,Material,Labour,LabourTypes
 
 
 # Create your views here.
@@ -120,6 +120,79 @@ def remove_supplier(request, id):
     obj.delete()
     messages.success(request, "Supplier Removed Successfully")
     return redirect('add_supplier')
+
+
+def labour_type(request):
+    labour_type_obj = LabourTypes.objects.all()[::-1]
+    context={
+        "labour_type":labour_type_obj
+    }
+    if request.method == "POST":
+        labour_types = request.POST.get("labour_types")
+        obj = LabourTypes(labour_types=labour_types)
+        obj.save()
+        messages.success(request, "Labour Type Added Successfully")
+        return redirect('labour_type')
+    return render(request, "labour/labour_type_list.html", context)
+
+
+def update_labour_type(request, id):
+    obj = get_object_or_404(LabourTypes, id=id)
+    if request.method == "POST":
+        obj.labour_types = request.POST.get("labour_types")
+        obj.save()
+        messages.success(request, "Labour Type Update Successfully")
+        return redirect('labour_type')
+
+
+
+def remove_labour_type(request, id):
+    obj = get_object_or_404(LabourTypes, id=id)
+    obj.delete()
+    messages.success(request, "Labour Type Remove Successfully")
+    return redirect('labour_type')
+
+
+def labour_list(request):
+    labour_obj = Labour.objects.all()[::-1]
+    context={
+        "labour": labour_obj,
+        'isact_labourlist': 'active'
+    }
+    return render(request, "labour/labour_list.html", context)
+
+
+def add_new_labour(request):
+    labour_type = LabourTypes.objects.all()
+    context={
+        'labour_type':labour_type,
+        'isact_labourlist':'active'
+    }
+    if request.method == "POST":
+        name = request.POST.get("name")
+        phone = request.POST.get("phone")
+        address = request.POST.get("address")
+        lab = request.POST.get("labour_type")
+        labour_t = LabourTypes.objects.get(id=int(lab))
+        qualification = request.POST.get("qualification")
+        nid_number = request.POST.get("nid_number")
+        photo = request.FILES.get("photo")
+        obj = Labour(labour_type=labour_t,name=name, phone=phone, address=address, qualification=qualification, nid_number=nid_number,photo=photo)
+        obj.save()
+        messages.success(request, "Labour added successfully")
+        return redirect('labour_list')
+    return render(request, "labour/add_new_labour.html", context)
+
+
+def remove_labour(request, id):
+    obj = get_object_or_404(Labour, id=id)
+    obj.delete()
+    messages.success(request, "Labour removed successfully")
+    return redirect('labour_list')
+
+
+
+
 
 # def stock_list(request):
 #     obj = Stock.objects.all()[::-1]

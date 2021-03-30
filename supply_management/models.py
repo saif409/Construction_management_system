@@ -16,6 +16,11 @@ class Labour(models.Model):
     qualification = models.CharField(max_length=200)
     nid_number = models.CharField(max_length=200)
     photo = models.ImageField()
+    created_date = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
 
 class Supplier(models.Model):
     name = models.CharField(max_length=200)
