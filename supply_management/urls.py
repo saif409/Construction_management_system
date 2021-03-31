@@ -15,6 +15,7 @@ urlpatterns = [
     path('labour_list/', views.labour_list, name="labour_list"),
     path('add-new-labour/', views.add_new_labour, name="add_new_labour"),
     path('remove_labour/<int:id>/', views.remove_labour, name="remove_labour"),
+    path('labour_update/<int:id>/', views.labour_update, name="labour_update"),
 
 
 

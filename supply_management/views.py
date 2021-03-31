@@ -184,6 +184,30 @@ def add_new_labour(request):
     return render(request, "labour/add_new_labour.html", context)
 
 
+def labour_update(request, id):
+    obj = get_object_or_404(Labour, id=id)
+    type = LabourTypes.objects.all()
+    context={
+        "labour":obj,
+        "type":type,
+        'isact_labourlist': 'active'
+    }
+    if request.method == "POST":
+        obj.name = request.POST.get("name")
+        obj.phone = request.POST.get("phone")
+        obj.address = request.POST.get("address")
+        labour_type = request.POST.get("labour_type")
+        obj.type = LabourTypes.objects.get(labour_types=labour_type)
+        obj.qualification = request.POST.get("qualification")
+        obj.nid_number = request.POST.get("nid_number")
+        if request.FILES.get("photo"):
+            obj.photo = request.POST.get("photo")
+        obj.save()
+        messages.success(request, "Labour Update Successfully!!")
+        return redirect('labour_list')
+    return render(request, "labour/update_labour.html", context)
+
+
 def remove_labour(request, id):
     obj = get_object_or_404(Labour, id=id)
     obj.delete()

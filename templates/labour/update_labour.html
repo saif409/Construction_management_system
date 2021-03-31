@@ -1,0 +1,105 @@
+{% include 'header.html' %}
+{% load static %}
+
+<div class="main-content" id="panel" style="margin-top:5px;">
+    <div class="col-lg-12">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert alert-primary" {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                {{ message}}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+
+    <!-- Page content -->
+    <div class="container-fluid mt--6" style="margin-top:30px; padding-bottom: 50px">
+        <div class="row">
+
+            <div class="col-xl-12 order-xl-1">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <h3 class="mb-0">Update Labour</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="pl-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Name<span style="color:red;">*</span></label>
+                                            <input type="text" name="name" class="form-control" required value="{{ labour.name }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Phone&nbsp;<span style="color:red;">*</span></label>
+                                            <input type="text" name="phone" class="form-control" required value="{{ labour.phone }}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Address&nbsp;<span style="color:red;">*</span></label>
+                                            <input type="text" name="address" class="form-control" required value="{{ labour.address }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Labour Type&nbsp;<span style="color:red;">*</span></label>
+                                            <select name="labour_type" id="" class="form-control">
+                                                <option>{{ labour.labour_type }}</option>
+                                                {% for type in type %}
+                                                    <option value="{{ type.labour_types }}">{{ type.labour_types }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Qualification&nbsp;<span style="color:red;">*</span></label>
+                                            <input type="text" name="qualification" class="form-control" required value="{{ labour.qualification }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Nid Number<span style="color:red;">*</span></label>
+                                            <input type="text" name="nid_number" class="form-control" required value="{{ labour.nid_number }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Photo<span style="color:red;">*</span></label>
+                                            <input type="file" name="photo" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <button class="btn btn-info float-right" type="submit">Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+
+

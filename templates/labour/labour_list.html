@@ -68,27 +68,15 @@
 
                                         <td style="width: 10%">
                                             <div class="btn-group">
-                                                <a href="" style="margin-right: 5px;">
-                                                    <button class="btn btn-primary fa fa-eye"></button>
-                                                </a>
-
-                                                    <a href=""
-                                                       style="margin-right: 5px;">
-                                                        <button class="btn btn-info fa fa-edit"></button>
-                                                    </a>
-                                                    <a href="" data-toggle="modal" id="{{ s.id }}"
-                                                       data-target="#surve_delete{{ s.id }}">
+                                                    <a href="{% url 'labour_update' id=user.id %}" style="margin-right: 5px;"><button class="btn btn-info fa fa-edit"></button></a>
+                                                    <a href="" data-toggle="modal" id="{{ user.id }}" data-target="#surve_delete{{ user.id }}">
                                                         <button class="btn btn-danger fa fa-trash"></button>
                                                     </a>
-
-
-
-
                                             </div>
                                         </td>
                                     </tr>
 
-                                    <div class="modal fade" id="surve_delete{{ s.id }}" tabindex="-1" role="dialog"
+                                    <div class="modal fade" id="surve_delete{{ user.id }}" tabindex="-1" role="dialog"
                                          aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -100,19 +88,14 @@
                                                         <span aria-hidden="true">×</span>
                                                     </button>
                                                 </div>
-                                                <div class="modal-body">{{ user.user.first_name }} {{ user.user.last_name }}</div>
+                                                <div class="modal-body">{{ user.name }}</div>
                                                 <div class="modal-footer">
-                                                    <button class="btn btn-danger" type="button" data-dismiss="modal">
-                                                        Cancel
-                                                    </button>
-                                                    <a class="btn btn-primary"
-                                                       href="">Confirm Delete</a>
+                                                    <button class="btn btn-danger" type="button" data-dismiss="modal">Cancel</button>
+                                                    <a class="btn btn-primary" href="{% url 'remove_labour' id=user.id %}">Confirm Delete</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-
                                 {% endfor %}
                                 </tbody>
                             </table>
