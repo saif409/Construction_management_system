@@ -3,7 +3,7 @@ from django.shortcuts import render,get_object_or_404, redirect
 from django.contrib import messages
 from django.views.generic.base import View
 
-from .models import Supply, Supplier, Stock,Material,Labour,LabourTypes,StockManagement,ConstructionSite,LabourWorkTime
+from .models import Supply, Supplier, Stock,Material,Labour,LabourTypes,StockManagement,ConstructionSite,LabourWorkTime,Client
 
 
 # Create your views here.
@@ -303,6 +303,34 @@ def add_stock_management(request):
     }
     return render(request, "stock/add_new_stock_management.html", context)
 
+
+def client_list(request):
+    client_obj = Client.objects.all()[::-1]
+    context={
+        "isact_clientlist":"active",
+        "client":client_obj
+    }
+    return render(request, "client/client_list.html", context)
+
+
+def add_new_client(request):
+    context={
+        "isact_clientlist":"active",
+    }
+    if request.method == "POST":
+        name = request.POST.get("name")
+        phone = request.POST.get("phone")
+        email = request.POST.get("email")
+        address = request.POST.get("address")
+        emergency_contact = request.POST.get("emergency_contact")
+        date_of_birth = request.POST.get("date_of_birth")
+        nid_number = request.POST.get("nid_number")
+        photo = request.FILES.get("photo")
+        obj = Client(name=name,phone=phone,email=email,address=address,emergency_contact=emergency_contact,date_of_birth=date_of_birth,nid_number=nid_number,photo=photo)
+        obj.save()
+        messages.success(request, "New Client Added Successfully")
+        return redirect('client_list')
+    return render(request, "client/add_new_client.html",context)
 
 
 # def stock_list(request):

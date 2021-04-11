@@ -1,0 +1,75 @@
+{% include 'header.html' %}
+{% load static %}
+
+<div class="container-fluid" style="margin-top: 20px;">
+    <div class="card">
+
+        <div class="card-header bg-primary">
+            <h3>Add New Client</h3>
+        </div>
+        <div class="card-header">
+            <form method="POST">
+                {% csrf_token %}
+                <table class="table table-bordered">
+                <tbody>
+
+
+                <tr>
+                    <th>Name</th>
+                    <td>
+                        <input type="text" name="name" class="form-control">
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Phone</th>
+                    <td>
+                        <input class="form-control" type="text" name="phone"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Email</th>
+                    <td>
+                        <input type="text" class="form-control" name="email"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>
+                        <input type="text" class="form-control" name="address"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Emergency Contact</th>
+                    <td>
+                        <input type="text" class="form-control" name="emergency_contact"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Date Of Birth</th>
+                    <td>
+                        <input type="text" class="form-control" name="date_of_birth"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Nid Number</th>
+                    <td>
+                        <input type="text" class="form-control" name="nid_number"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Photo</th>
+                    <td><input type="file" class="form-control" name="photo"/></td>
+                </tr>
+
+                </tbody>
+
+            </table>
+                 <button class="btn btn-primary float-right" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}

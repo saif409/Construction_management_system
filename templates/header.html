@@ -32,16 +32,16 @@
                 <a href="{% url 'home' %}"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
             </li>
             <li class="dashboard {{ isact_supplier }}">
-                <a href="{% url 'add_supplier' %}"><i class="fa fa-home"></i> <span class="nav-label">Supplier</span></a>
+                <a href="{% url 'add_supplier' %}"><i class="fa fa-list"></i> <span class="nav-label">Supplier</span></a>
             </li>
             <li class="supply {{ isact_supply }}">
                 <a href="{% url 'list' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Supply Management</span></a>
             </li>
             <li class="supply {{ isact_labourlist }}">
-                <a href="{% url 'labour_list' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Labour List</span></a>
+                <a href="{% url 'labour_list' %}"><i class="fa fa-list" aria-hidden="true"></i><span class="nav-label">Labour List</span></a>
             </li>
             <li class="stock{{ isact_stocklist }} ">
-                <a href="{% url 'stock_list' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Stock</span></a>
+                <a href="{% url 'stock_list' %}"><i class="fa fa-list" aria-hidden="true"></i><span class="nav-label">Stock</span></a>
             </li>
             <li class="stock{{ isact_stockmanagement }} ">
                 <a href="{% url 'stock_management' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Stock Management</span></a>
@@ -49,9 +49,9 @@
             <li class="stock{{ isact_stockmanagement }} ">
                 <a href="{% url 'work_time_list' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Labour Work Time List</span></a>
             </li>
-{#            <li class="dashboard {{ isact_site_manager }}">#}
-{#                <a href=""><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Manager Request List</span></a>#}
-{#            </li>#}
+            <li class="dashboard {{ isact_site_manager }}">
+                <a href="{% url 'client_list' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Client List</span></a>
+            </li>
 
 
             <li>
