@@ -63,7 +63,7 @@ class Stock(models.Model):
     update_by = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.category
+        return self.name
 
 class Client(models.Model):
     name = models.CharField(max_length=200)
@@ -94,9 +94,9 @@ class ConstructionSite(models.Model):
 class LabourWorkTime(models.Model):
     consturction_site = models.ForeignKey(ConstructionSite, on_delete=models.CASCADE)
     labour = models.ForeignKey(Labour, on_delete=models.CASCADE)
-    date = models.DateField()
-    start_date = models.DateField()
-    end_date = models.DateField()
+    date = models.DateField(auto_now_add=True)
+    start_date = models.CharField(max_length=200)
+    end_date = models.CharField(max_length=200)
 
     def __str__(self):
         return self.labour.name
@@ -105,7 +105,7 @@ class StockManagement(models.Model):
     construct_site = models.ForeignKey(ConstructionSite, on_delete=models.CASCADE)
     material = models.ForeignKey(Material, on_delete=models.CASCADE)
     quantity = models.CharField(max_length=200)
-    date = models.DateField()
+    date = models.DateField(auto_now_add=True)
 
 
 class Invoice(models.Model):

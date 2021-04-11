@@ -21,8 +21,8 @@
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
-                <div class="dropdown profile-element left-profile">
-                    <img alt="image" class="rounded-circle" style="height:50px;width:50px;background-color: whitesmoke;" src="{% static 'img/defaultpic.png' %}"/>
+                <div class="dropdown profile-element ">
+                    <img alt="image" class="img-fluid" style="height:70px;width:150px;background-color: whitesmoke;" src="{% static 'img/defaultpic.png' %}"/>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="block m-t-xs font-bold profile-title" style="padding-left:20px">{{ request.user }}</span>
                     </a>
@@ -40,9 +40,15 @@
             <li class="supply {{ isact_labourlist }}">
                 <a href="{% url 'labour_list' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Labour List</span></a>
             </li>
-{#            <li class="stock{{ isact_stock }} ">#}
-{#                <a href=""><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Stock</span></a>#}
-{#            </li>#}
+            <li class="stock{{ isact_stocklist }} ">
+                <a href="{% url 'stock_list' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Stock</span></a>
+            </li>
+            <li class="stock{{ isact_stockmanagement }} ">
+                <a href="{% url 'stock_management' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Stock Management</span></a>
+            </li>
+            <li class="stock{{ isact_stockmanagement }} ">
+                <a href="{% url 'work_time_list' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Labour Work Time List</span></a>
+            </li>
 {#            <li class="dashboard {{ isact_site_manager }}">#}
 {#                <a href=""><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Manager Request List</span></a>#}
 {#            </li>#}

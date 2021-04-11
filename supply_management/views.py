@@ -3,7 +3,7 @@ from django.shortcuts import render,get_object_or_404, redirect
 from django.contrib import messages
 from django.views.generic.base import View
 
-from .models import Supply, Supplier, Stock,Material,Labour,LabourTypes
+from .models import Supply, Supplier, Stock,Material,Labour,LabourTypes,StockManagement,ConstructionSite,LabourWorkTime
 
 
 # Create your views here.
@@ -184,6 +184,34 @@ def add_new_labour(request):
     return render(request, "labour/add_new_labour.html", context)
 
 
+def work_time_list(request):
+    obj = LabourWorkTime.objects.all()
+    context={
+        "obj":obj
+    }
+    return render(request, "labour/work_time_list.html", context)
+
+
+def add_labour_work_time(request):
+    cons_site = ConstructionSite.objects.all()
+    lab = Labour.objects.all()
+    context={
+        "cons_site":cons_site,
+        "lab":lab
+    }
+    if request.method == "POST":
+        consturction_site_obj = request.POST.get("consturction_site")
+        consturction_site = ConstructionSite.objects.get(location=consturction_site_obj)
+        labour_obj = request.POST.get("labour")
+        labour = Labour.objects.get(name=labour_obj)
+        start_date = request.POST.get("start_date")
+        end_date = request.POST.get("end_date")
+        work_time_obj = LabourWorkTime(consturction_site=consturction_site,labour=labour,start_date=start_date,end_date=end_date)
+        work_time_obj.save()
+        messages.success(request, "Labour Work Time Added Successfully")
+        return redirect("work_time_list")
+    return render(request, "labour/add_labour_work_time.html", context)
+
 def labour_update(request, id):
     obj = get_object_or_404(Labour, id=id)
     type = LabourTypes.objects.all()
@@ -215,6 +243,65 @@ def remove_labour(request, id):
     return redirect('labour_list')
 
 
+def stock_list(request):
+    obj = Stock.objects.all()[::-1]
+    stock_obj = Stock.objects.all()
+    total_quantity = stock_obj.aggregate(Sum('quantity'))['quantity__sum']
+    context={
+        "obj":obj,
+        "isact_stocklist":"active",
+        "total_quantity":total_quantity
+    }
+    return render(request, "stock/stock_list.html",context)
+
+
+def add_new_stock(request):
+    obj = Material.objects.all()
+    context={
+        "obj":obj,
+        "isact_stocklist": "active",
+    }
+    if request.method == "POST":
+        material_obj = request.POST.get("material")
+        material = Material.objects.get(material_name=material_obj)
+        name = request.POST.get("name")
+        quantity = request.POST.get("quantity")
+        update_by = request.user
+        stock_obj = Stock(name=name,material=material,quantity=quantity,update_by=update_by)
+        stock_obj.save()
+        messages.success(request, "Stock Added Successfully")
+        return redirect('stock_list')
+    return render(request, "stock/add_new_stock.html", context)
+
+
+def stock_management(request):
+    obj = StockManagement.objects.all()
+    context={
+        "obj":obj,
+        "isact_stockmanagement":"active"
+    }
+    return render(request, "stock/stock_management.html", context)
+
+
+def add_stock_management(request):
+    obj = ConstructionSite.objects.all()
+    material_obj = Material.objects.all()
+    if request.method == "POST":
+        construct_site_obj = request.POST.get("construct_site")
+        construct_site = ConstructionSite.objects.get(location=construct_site_obj)
+        mat_obj = request.POST.get("material")
+        material = Material.objects.get(material_name=mat_obj)
+        quantity = request.POST.get("quantity")
+        stock_management_obj = StockManagement(construct_site=construct_site,material=material,quantity=quantity)
+        stock_management_obj.save()
+        messages.success(request, "Added Successfully")
+        return redirect('stock_management')
+    context={
+        "isact_stockmanagement": "active",
+        "material_obj":material_obj,
+        "obj":obj
+    }
+    return render(request, "stock/add_new_stock_management.html", context)
 
 
 
@@ -222,7 +309,6 @@ def remove_labour(request, id):
 #     obj = Stock.objects.all()[::-1]
 #     stock_obj = Stock.objects.all()
 #     total_quantity = stock_obj.aggregate(Sum('quantity'))['quantity__sum']
-#
 #     site_obj = SiteManageger.objects.filter(is_approve=True)
 #     total_quantity_site = site_obj.aggregate(Sum('quantity'))['quantity__sum']
 #     if total_quantity_site is None :
@@ -241,22 +327,7 @@ def remove_labour(request, id):
 #     return render(request, "stock/stock_list.html", context)
 #
 #
-# def add_new_stock(request):
-#     obj = Supplier.objects.all()
-#     context={
-#         "obj":obj,
-#         "isact_stock": "active",
-#     }
-#     if request.method == "POST":
-#         supplier_obj = request.POST.get("supplier")
-#         supplier = Supplier.objects.get(name=supplier_obj)
-#         category = request.POST.get("category")
-#         material = request.POST.get("material")
-#         quantity = request.POST.get("quantity")
-#         stock_obj = Stock(supplier=supplier,category=category,material=material,quantity=quantity,update_by=request.user)
-#         stock_obj.save()
-#         return redirect('stock_list')
-#     return render(request, "stock/add_new_stock.html", context)
+
 #
 #
 # def site_manager_request_list(request, filter):

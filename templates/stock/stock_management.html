@@ -12,49 +12,6 @@
     </div>
     {% endif %}
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="widget style1 lazur-bg">
-                    <div class="row">
-                        <div class="col-4">
-                            <i class="fa fa-id-badge fa-5x"></i>
-                        </div>
-                        <div class="col-8 text-right">
-                            <span>Total Quantity Stock</span>
-                            <h2 class="font-bold">{{ total_quantity }}</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="widget style1 bg-primary">
-                    <div class="row">
-                        <div class="col-4">
-                            <i class="fa fa-users fa-5x"></i>
-                        </div>
-                        <div class="col-8 text-right">
-                            <span>Total Available Stock</span>
-                            <h2 class="font-bold">{{ total }}</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="widget style1 bg-danger">
-                    <div class="row">
-                        <div class="col-4">
-                            <i class="fa fa-user fa-5x"></i>
-                        </div>
-                        <div class="col-8 text-right">
-                            <span>Total Request From Site manager</span>
-                            <h2 class="font-bold">{{ total_quantity_site }}</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="row">
         <div class="container-fluid">
@@ -62,7 +19,7 @@
                 <div class="card">
                     <div class="card-header bg-primary">
                         <div class="row align-items-center">
-                            <h4 class="text-blod" style="padding-left:20px;">Stock List</h4>
+                            <h4 class="text-blod" style="padding-left:20px;">Stock Management List</h4>
                         </div>
                     </div>
                     <div class="col-md-12" style="margin-top:30px;">
@@ -70,12 +27,9 @@
                             <div class="col-12">
                                 <div class="col-lg-offset-6">
                                     <a class="mr-2  btn btn-primary btn-sm float-right"
-                                       href="{% url 'add_new_stock' %}"><i class="fa fa-plus-circle" style="color:#fff;"></i>&nbsp;&nbsp;Add New Stock</a>
+                                       href="{% url 'add_stock_management' %}"><i class="fa fa-plus-circle" style="color:#fff;"></i>&nbsp;&nbsp;Add New Stock Management</a>
                                 </div>
-                                <div class="col-lg-offset-6">
-                                    <a class="mr-2  btn btn-primary btn-sm float-right"
-                                       href=""><i class="fa fa-list" style="color:#fff;"></i>&nbsp;Request from Site manager</a>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -88,8 +42,8 @@
                                 <thead class="thead-light mt-4">
                                 <tr>
                                     <th data-sort="name">Sl no</th>
+                                    <th data-sort="name">Construct Site</th>
                                     <th data-sort="name">Material</th>
-                                    <th data-sort="name">Name</th>
                                     <th data-sort="name">Quantity</th>
                                     <th>Action</th>
                                 </tr>
@@ -100,11 +54,11 @@
                                     <th scope="row"><span class="name mb-0 text-sm">{{ forloop.counter }}</span>
                                     </th>
                                     <td>
-                                        <span class="status">{{ obj.material.material_name }}</span><br>
-                                        <small style="color:#fff;background-color:#e8583f;border-radius: 10px;padding-left:5px;padding-right:5px;">{{ obj.update_date }}</small>
+                                        <span class="status">{{ obj.construct_site }}</span><br>
+                                        <small style="color:#fff;background-color:#e8583f;border-radius: 10px;padding-left:5px;padding-right:5px;">{{ obj.date }}</small>
                                     </td>
                                     <td>
-                                        <span class="status">{{ obj.name }}</span><br>
+                                        <span class="status">{{ obj.material }}</span><br>
                                     </td>
                                     <td>
                                         <span class="status">{{ obj.quantity }}</span>
