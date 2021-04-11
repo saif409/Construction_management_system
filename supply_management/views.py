@@ -191,6 +191,12 @@ def work_time_list(request):
     }
     return render(request, "labour/work_time_list.html", context)
 
+def remove_work_list(request, id):
+    obj = get_object_or_404(LabourWorkTime, id=id)
+    obj.delete()
+    messages.success(request, "Work List Delete Successfully")
+    return redirect('work_time_list')
+
 
 def add_labour_work_time(request):
     cons_site = ConstructionSite.objects.all()
@@ -254,6 +260,11 @@ def stock_list(request):
     }
     return render(request, "stock/stock_list.html",context)
 
+def remove_stock(request, id):
+    obj = get_object_or_404(Stock, id=id)
+    obj.delete()
+    messages.success(request, "Stock Removed Successfully")
+    return redirect('stock_list')
 
 def add_new_stock(request):
     obj = Material.objects.all()
@@ -281,6 +292,12 @@ def stock_management(request):
         "isact_stockmanagement":"active"
     }
     return render(request, "stock/stock_management.html", context)
+
+def remove_stock_management(request, id):
+    obj = get_object_or_404(StockManagement, id=id)
+    obj.delete()
+    messages.success(request, "Stock management Deleted Successfully")
+    return redirect('stock_management')
 
 
 def add_stock_management(request):
@@ -332,6 +349,12 @@ def add_new_client(request):
         return redirect('client_list')
     return render(request, "client/add_new_client.html",context)
 
+
+def remove_client(request, id):
+    obj = get_object_or_404(Client, id=id)
+    obj.delete()
+    messages.success(request, "Client remove Successfully")
+    return redirect('client_list')
 
 # def stock_list(request):
 #     obj = Stock.objects.all()[::-1]

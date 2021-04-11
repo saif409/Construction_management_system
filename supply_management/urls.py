@@ -16,15 +16,23 @@ urlpatterns = [
     path('add-new-labour/', views.add_new_labour, name="add_new_labour"),
     path('add-labour-work-time/', views.add_labour_work_time, name="add_labour_work_time"),
     path('work-time-list/', views.work_time_list, name="work_time_list"),
+    path('remove-work-list/<int:id>/', views.remove_work_list, name="remove_work_list"),
+
     path('client-list/', views.client_list, name="client_list"),
 
     path('remove_labour/<int:id>/', views.remove_labour, name="remove_labour"),
     path('labour_update/<int:id>/', views.labour_update, name="labour_update"),
     path('stock/list/', views.stock_list, name="stock_list"),
+    path('remove-stock/<int:id>/', views.remove_stock, name="remove_stock"),
+
     path('add-new-stock/', views.add_new_stock, name="add_new_stock"),
     path('stock/management/', views.stock_management, name="stock_management"),
+    path('remove-stock-management/<int:id>/', views.remove_stock_management, name="remove_stock_management"),
+
     path('add/stock/management/', views.add_stock_management, name="add_stock_management"),
     path('add-new-client', views.add_new_client, name="add_new_client"),
+    path('remove-client/<int:id>/', views.remove_client, name="remove_client"),
+
 
     # path('site-manager-request', views.site_manager_request, name="site_manager_request"),
     # path('site-manager-request-list/<str:filter>/', views.site_manager_request_list, name="site_manager_request_list"),
