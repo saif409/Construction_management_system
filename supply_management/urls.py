@@ -45,8 +45,11 @@ urlpatterns = [
 
     path('cost_estimation/', views.cost_estimation_details, name="cost_estimation"),
 
-
-
+    path('register-surveyor/', views.register_surveyor, name="register_surveyor"),
+    path('surveyor-list/<str:filter>/', views.surveyor_list, name="surveyor_list"),
+    path('surveyor-details/<int:id>/', views.view_surveyor, name="view_surveyor"),
+    path('update-surveyor/<int:id>/', views.update_surveyor, name="update_surveyor"),
+    path('remove-surveyor/<int:id>/', views.remove_surveyor, name="remove_surveyor"),
 
     # path('site-manager-request', views.site_manager_request, name="site_manager_request"),
     # path('site-manager-request-list/<str:filter>/', views.site_manager_request_list, name="site_manager_request_list"),

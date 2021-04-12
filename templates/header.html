@@ -31,6 +31,12 @@
             <li class="dashboard {{ isact_home }}">
                 <a href="{% url 'home' %}"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
             </li>
+            <li class=" surveyorlist {{ isact_surveyorlist }}">
+                <a href="{% url 'surveyor_list' filter='None' %}"><i class="fa fa-list"></i> <span class="nav-label">All Users</span></a>
+            </li>
+            <li class="createsurvey {{ isact_registersurveyor }}">
+                <a href="{% url 'register_surveyor' %}"><i class="fa fa-user-plus"></i> <span class="nav-label">Add New User</span></a>
+            </li>
             <li class="dashboard {{ isact_supplier }}">
                 <a href="{% url 'add_supplier' %}"><i class="fa fa-list"></i> <span class="nav-label">Supplier</span></a>
             </li>
