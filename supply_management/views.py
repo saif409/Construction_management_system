@@ -1,7 +1,14 @@
 from django.db.models import Sum
 from django.shortcuts import render,get_object_or_404, redirect
+from django.http import HttpResponse
 from django.contrib import messages
 from django.views.generic.base import View
+# for Pdf views
+# for pff import 
+from io import BytesIO
+from django.views import View
+from django.template.loader import get_template
+from xhtml2pdf import pisa
 
 from .models import Supply, Supplier, Stock,Material,Labour,LabourTypes,StockManagement,ConstructionSite,LabourWorkTime,Client
 
@@ -462,6 +469,43 @@ def cost_estimation_details(request):
         'isact_costestimation':'active'
     }
     return render(request, "cost_estimation/cost_estimation_pdf.html", context)
+
+# pdf file added 
+def cost_estimation_pdf_view(request):
+    template_path = 'cost_estimation/cost_pdf_view.html'
+    #obj = obj query
+    context = {    }
+    response = HttpResponse(content_type='application/pdf')
+    template = get_template(template_path)
+    html = template.render(context)
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+# for downloading pdf 
+def render_to_pdf(template_src, context_dict={}):
+	template = get_template(template_src)
+	html  = template.render(context_dict)
+	result = BytesIO()
+	pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+	if not pdf.err:
+		return HttpResponse(result.getvalue(), content_type='application/pdf')
+	return None
+
+
+class cost_estimation_pdf_download(View):
+	def get(self, request, *args, **kwargs):
+		
+		pdf = render_to_pdf('cost_estimation/cost_pdf_view.html')
+
+		response = HttpResponse(pdf, content_type='application/pdf')
+		filename = 'Invoice_%s.pdf' %("12341231")
+		content = "attachment; filename= %s" %(filename)
+		response['Content-Disposition'] = content
+		return response
+
 
 
 

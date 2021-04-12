@@ -147,8 +147,12 @@
                                         <div class="row no-print">
                                             <div class="col-12">
                                                 <button type="button" class="btn btn-primary float-right"
+                                                style="margin-right: 5px;">
+                                                <i class="fas fa-download"></i><a href="{% url 'cost_pdf_download' %}" style="color:white" > Download PDF</a>
+                                                </button>
+                                                <button type="button" class="btn btn-primary float-right"
                                                         style="margin-right: 5px;">
-                                                    <i class="fas fa-download"></i> Generate PDF
+                                                    <i class="fas fa-download"></i><a href="{% url 'cost_pdf_view' %}" style='color:white' target="_blank"> Print PDF</a>
                                                 </button>
                                             </div>
                                         </div>
