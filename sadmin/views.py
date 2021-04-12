@@ -16,16 +16,19 @@ def testview(request):
 
 
 def user_login(request):
-    if request.method == "POST":
-        user = request.POST.get('user', )
-        password = request.POST.get('pass', )
-        auth = authenticate(request, username=user, password=password)
-        if auth is not None:
-            login(request, auth)
-            return redirect('home')
-        else:
-            messages.add_message(request, messages.ERROR, 'Username or password mismatch!')
-    return render(request, "login.html")
+    if request.user.is_authenticated:
+        return redirect('home')
+    else:
+        if request.method == "POST":
+            user = request.POST.get('user', )
+            password = request.POST.get('pass', )
+            auth = authenticate(request, username=user, password=password)
+            if auth is not None:
+                login(request, auth)
+                return redirect('home')
+            else:
+                messages.add_message(request, messages.ERROR, 'Username or password mismatch!')
+        return render(request, "login.html")
 
 
 def user_logout(request):

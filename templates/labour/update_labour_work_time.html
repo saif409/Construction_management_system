@@ -13,7 +13,7 @@
     <div class="card">
 
         <div class="card-header bg-primary">
-            <h3>Add New Labour Work Time</h3>
+            <h3>Update Labour Work Time</h3>
         </div>
         <div class="card-header">
             <form method="POST">
@@ -23,6 +23,7 @@
                 <tr>
                     <th>Contruction Site Location</th>
                     <td>
+                    <p>Select Now : {{ labour_work_time.consturction_site }}</p>
                         <select name="consturction_site" id="" class="form-control">
                             {% for cons_site in cons_site %}
                                 <option value="{{ cons_site.location }}">{{ cons_site.location }}</option>
@@ -34,6 +35,7 @@
                 <tr>
                     <th>Labour Name</th>
                     <td>
+                    <p>Select Now : {{ labour_work_time.labour }}</p>
                         <select name="labour" id="" class="form-control">
                             {% for lab in lab %}
                                 <option value="{{ lab.name }}">{{ lab.name }}</option>
@@ -44,18 +46,18 @@
 
                 <tr>
                     <th>Start Date</th>
-                    <td><input type="text" class="form-control" name="start_date"/></td>
+                    <td><input type="text" class="form-control" name="start_date" value="{{ labour_work_time.start_date }}"/></td>
                 </tr>
                 <tr>
                     <th>End Date</th>
-                    <td><input type="text" class="form-control" name="end_date"/></td>
+                    <td><input type="text" class="form-control" name="end_date" value="{{ labour_work_time.end_date }}"/></td>
                 </tr>
 
 
                 </tbody>
 
             </table>
-                 <button class="btn btn-primary float-right" type="submit">Submit</button>
+                 <button class="btn btn-primary float-right" type="submit">Update</button>
             </form>
         </div>
     </div>

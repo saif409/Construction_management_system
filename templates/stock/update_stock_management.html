@@ -1,0 +1,53 @@
+{% include 'header.html' %}
+{% load static %}
+<div class="container-fluid" style="margin-top: 20px;">
+    <div class="card">
+
+        <div class="card-header bg-primary">
+            <h3>Update Stock Management</h3>
+        </div>
+        <div class="card-header">
+            <form method="POST">
+                {% csrf_token %}
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <th>Construction Site Location </th>
+
+                        <td>
+                            <p class="text-danger">Selected Now :{{ get_stock_management.construct_site }} </p>
+                            <select name="construct_site" id="" class="form-control">
+                                {% for obj in obj %}
+                                <option value="{{ obj.location }}">{{ obj.location }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Material</th>
+                        <td>
+                         <p class="text-danger">Selected Now :{{ get_stock_management.material }} </p>
+                            <select name="material" id="" class="form-control">
+                                {% for obj in material_obj %}
+                                <option value="{{ obj.material_name }}">{{ obj.material_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Quantity</th>
+                        <td><input class="form-control" type="text" name="quantity" value="{{ get_stock_management.quantity }} "/>
+                        </td>
+                    </tr>
+
+                    </tbody>
+
+
+                </table>
+                <button class="btn btn-primary float-right" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}

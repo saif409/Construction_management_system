@@ -53,16 +53,21 @@ def supply_view(request, id):
 
 def supply_update(request, id):
     supplier_obj = Supplier.objects.all()
+    material = Material.objects.all()
     obj = get_object_or_404(Supply, id=id)
     context={
         "obj":obj,
         "supplier_obj":supplier_obj,
         "isact_supply": "active",
+        "material":material
     }
     if request.method == "POST":
         supplier_company = request.POST.get("supplier_company_name")
         get_supplier = Supplier.objects.get(name=supplier_company)
         obj.supplier_company_name = get_supplier
+        material_name = request.POST.get("material")
+        get_material = Material.objects.get(material_name=material_name)
+        obj.material = get_material
         obj.lot_no = request.POST.get("lot_no")
         obj.quantity = request.POST.get("quantity")
         obj.unit_price = request.POST.get("unit_price")
@@ -187,7 +192,8 @@ def add_new_labour(request):
 def work_time_list(request):
     obj = LabourWorkTime.objects.all()
     context={
-        "obj":obj
+        "obj":obj,
+        'isact_labourworktime': 'active'
     }
     return render(request, "labour/work_time_list.html", context)
 
@@ -203,6 +209,7 @@ def add_labour_work_time(request):
     lab = Labour.objects.all()
     context={
         "cons_site":cons_site,
+        'isact_labourworktime':'active',
         "lab":lab
     }
     if request.method == "POST":
@@ -217,6 +224,30 @@ def add_labour_work_time(request):
         messages.success(request, "Labour Work Time Added Successfully")
         return redirect("work_time_list")
     return render(request, "labour/add_labour_work_time.html", context)
+
+
+def update_labour_work_time(request, id):
+    cons_site = ConstructionSite.objects.all()
+    lab = Labour.objects.all()
+    labour_work_time = get_object_or_404(LabourWorkTime, id=id)
+    context={
+        "cons_site":cons_site,
+        'isact_labourworktime':'active',
+        "lab":lab,
+        "labour_work_time":labour_work_time
+    }
+    if request.method == "POST":
+        consturction_site_obj = request.POST.get("consturction_site")
+        labour_work_time.consturction_site = ConstructionSite.objects.get(location=consturction_site_obj)
+        labour_obj = request.POST.get("labour")
+        labour_work_time.labour = Labour.objects.get(name=labour_obj)
+        labour_work_time.start_date = request.POST.get("start_date")
+        labour_work_time.end_date = request.POST.get("end_date")
+        labour_work_time.save()
+        messages.success(request, "Labour Work Time Added Successfully")
+        return redirect("work_time_list")
+    return render(request, "labour/update_labour_work_time.html", context)
+
 
 def labour_update(request, id):
     obj = get_object_or_404(Labour, id=id)
@@ -235,7 +266,7 @@ def labour_update(request, id):
         obj.qualification = request.POST.get("qualification")
         obj.nid_number = request.POST.get("nid_number")
         if request.FILES.get("photo"):
-            obj.photo = request.POST.get("photo")
+            obj.photo = request.FILES.get("photo")
         obj.save()
         messages.success(request, "Labour Update Successfully!!")
         return redirect('labour_list')
@@ -255,7 +286,7 @@ def stock_list(request):
     total_quantity = stock_obj.aggregate(Sum('quantity'))['quantity__sum']
     context={
         "obj":obj,
-        "isact_stocklist":"active",
+        'isact_stocklist': 'active',
         "total_quantity":total_quantity
     }
     return render(request, "stock/stock_list.html",context)
@@ -270,7 +301,7 @@ def add_new_stock(request):
     obj = Material.objects.all()
     context={
         "obj":obj,
-        "isact_stocklist": "active",
+         'isact_stocklist': 'active',
     }
     if request.method == "POST":
         material_obj = request.POST.get("material")
@@ -285,11 +316,32 @@ def add_new_stock(request):
     return render(request, "stock/add_new_stock.html", context)
 
 
+def update_stock(request, id):
+    mate = Material.objects.all()
+    obj = get_object_or_404(Stock, id=id)
+    context={
+        "obj":obj,
+        "mate":mate,
+        'isact_stocklist': 'active'
+
+    }
+    if request.method == "POST":
+        material_obj = request.POST.get("material")
+        obj.material = Material.objects.get(material_name=material_obj)
+        obj.name = request.POST.get("name")
+        obj.quantity = request.POST.get("quantity")
+        obj.save()
+        messages.success(request, "Stock Update Successfully")
+        return redirect('stock_list')
+    return render(request, "stock/update_stock.html", context)
+
+
 def stock_management(request):
     obj = StockManagement.objects.all()
     context={
         "obj":obj,
-        "isact_stockmanagement":"active"
+        'isact_stockmanagement': 'active',
+
     }
     return render(request, "stock/stock_management.html", context)
 
@@ -321,6 +373,28 @@ def add_stock_management(request):
     return render(request, "stock/add_new_stock_management.html", context)
 
 
+def update_stock_management(request, id):
+    obj = ConstructionSite.objects.all()
+    material_obj = Material.objects.all()
+    get_stock_management = get_object_or_404(StockManagement, id=id)
+    if request.method == "POST":
+        construct_site_obj = request.POST.get("construct_site")
+        get_stock_management.construct_site = ConstructionSite.objects.get(location=construct_site_obj)
+        mat_obj = request.POST.get("material")
+        get_stock_management.material = Material.objects.get(material_name=mat_obj)
+        get_stock_management.quantity = request.POST.get("quantity")
+        get_stock_management.save()
+        messages.success(request, "Update Successfully")
+        return redirect('stock_management')
+    context={
+        "isact_stockmanagement": "active",
+        "material_obj":material_obj,
+        "get_stock_management":get_stock_management,
+        "obj":obj
+    }
+    return render(request, "stock/update_stock_management.html", context)
+
+
 def client_list(request):
     client_obj = Client.objects.all()[::-1]
     context={
@@ -348,6 +422,27 @@ def add_new_client(request):
         messages.success(request, "New Client Added Successfully")
         return redirect('client_list')
     return render(request, "client/add_new_client.html",context)
+
+
+def update_client(request, id):
+    client = get_object_or_404(Client, id=id)
+    context={
+        "isact_clientlist":"active",
+        "client":client
+    }
+    if request.method == "POST":
+        client.name = request.POST.get("name")
+        client.phone = request.POST.get("phone")
+        client.email = request.POST.get("email")
+        client.address = request.POST.get("address")
+        client.emergency_contact = request.POST.get("emergency_contact")
+        client.date_of_birth = request.POST.get("date_of_birth")
+        client.nid_number = request.POST.get("nid_number")
+        client.photo = request.FILES.get("photo")
+        client.save()
+        messages.success(request, "Client Updated Successfully")
+        return redirect('client_list')
+    return render(request, "client/update_client.html",context)
 
 
 def remove_client(request, id):

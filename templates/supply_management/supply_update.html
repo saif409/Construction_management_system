@@ -31,8 +31,14 @@
 
                     <tr>
                         <th>Material</th>
-                        <td><input type="text" class="form-control" value="{{obj.material}}"
-                                   name="material"/></td>
+                        <td>
+                            <p>seleceted now : {{obj.material}}</p>
+                            <select name="material" class="form-control">
+                                {% for material in material %}
+                                <option value="{{ material.material_name }}">{{ material.material_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
                     </tr>
 
                     <tr>
@@ -42,8 +48,7 @@
 
                     <tr>
                         <th>Unit Price</th>
-                        <td><input class="form-control" type="text" value="{{obj.unit_price}}"
-                                   name="unit_price"/></td>
+                        <td><input class="form-control" type="text" value="{{obj.unit_price}}" name="unit_price"/></td>
                     </tr>
 
                     </tbody>

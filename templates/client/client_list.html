@@ -69,7 +69,7 @@
 
                                         <td style="width: 10%">
                                             <div class="btn-group">
-                                                    <a href="" style="margin-right: 5px;"><button class="btn btn-info fa fa-edit"></button></a>
+                                                    <a href="{% url 'update_client' id=c.id %}" style="margin-right: 5px;"><button class="btn btn-info fa fa-edit"></button></a>
                                                     <a href="" data-toggle="modal" id="{{ c.id }}" data-target="#surve_delete{{ user.id }}">
                                                         <button class="btn btn-danger fa fa-trash"></button>
                                                     </a>

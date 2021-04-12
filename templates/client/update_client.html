@@ -5,7 +5,7 @@
     <div class="card">
 
         <div class="card-header bg-primary">
-            <h3>Add New Client</h3>
+            <h3>Update Client</h3>
         </div>
         <div class="card-header">
             <form method="POST" enctype="multipart/form-data">
@@ -17,56 +17,56 @@
                 <tr>
                     <th>Name</th>
                     <td>
-                        <input type="text" name="name" class="form-control">
+                        <input type="text" name="name" class="form-control" value="{{ client.name }}">
                     </td>
                 </tr>
 
                 <tr>
                     <th>Phone</th>
                     <td>
-                        <input class="form-control" type="text" name="phone"/>
+                        <input class="form-control" type="text" name="phone" value="{{ client.phone }}"/>
                     </td>
                 </tr>
 
                 <tr>
                     <th>Email</th>
                     <td>
-                        <input type="text" class="form-control" name="email"/>
+                        <input type="text" class="form-control" name="email" value="{{ client.email }}"/>
                     </td>
                 </tr>
                 <tr>
                     <th>Address</th>
                     <td>
-                        <input type="text" class="form-control" name="address"/>
+                        <input type="text" class="form-control" name="address" value="{{ client.address }}"/>
                     </td>
                 </tr>
                 <tr>
                     <th>Emergency Contact</th>
                     <td>
-                        <input type="text" class="form-control" name="emergency_contact"/>
+                        <input type="text" class="form-control" name="emergency_contact" value="{{ client.emergency_contact }}"/>
                     </td>
                 </tr>
                 <tr>
                     <th>Date Of Birth</th>
                     <td>
-                        <input type="text" class="form-control" name="date_of_birth"/>
+                        <input type="text" class="form-control" name="date_of_birth" value="{{ client.date_of_birth }}"/>
                     </td>
                 </tr>
                 <tr>
                     <th>Nid Number</th>
                     <td>
-                        <input type="text" class="form-control" name="nid_number"/>
+                        <input type="text" class="form-control" name="nid_number" value="{{ client.nid_number }}"/>
                     </td>
                 </tr>
                 <tr>
                     <th>Photo</th>
-                    <td><input type="file" class="form-control" name="photo"/></td>
+                    <td><input type="file" class="form-control" name="photo" /></td>
                 </tr>
 
                 </tbody>
 
             </table>
-                 <button class="btn btn-primary float-right" type="submit">Submit</button>
+                 <button class="btn btn-primary float-right" type="submit">Update</button>
             </form>
         </div>
     </div>

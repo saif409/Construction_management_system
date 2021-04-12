@@ -71,7 +71,7 @@ class Client(models.Model):
     email = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
     emergency_contact = models.CharField(max_length=200)
-    date_of_birth = models.DateField()
+    date_of_birth = models.CharField(max_length=200)
     nid_number = models.CharField(max_length=200)
     photo = models.FileField()
 
