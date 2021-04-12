@@ -42,6 +42,12 @@ urlpatterns = [
     path('client-list/', views.client_list, name="client_list"),
 
 
+
+    path('cost_estimation/', views.cost_estimation_details, name="cost_estimation"),
+
+
+
+
     # path('site-manager-request', views.site_manager_request, name="site_manager_request"),
     # path('site-manager-request-list/<str:filter>/', views.site_manager_request_list, name="site_manager_request_list"),
     # path('site-manager-request-list/<str:filter>/', views.site_manager_request_list, name="site_manager_request_list"),

@@ -451,6 +451,20 @@ def remove_client(request, id):
     messages.success(request, "Client remove Successfully")
     return redirect('client_list')
 
+
+def cost_estimation_details(request):
+    area = 100
+    one_bag_cement = (100/45)
+    cal_cement = one_bag_cement * area
+
+    print(cal_cement)
+    context={
+        'isact_costestimation':'active'
+    }
+    return render(request, "cost_estimation/cost_estimation_pdf.html", context)
+
+
+
 # def stock_list(request):
 #     obj = Stock.objects.all()[::-1]
 #     stock_obj = Stock.objects.all()

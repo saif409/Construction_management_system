@@ -117,3 +117,8 @@ class Invoice(models.Model):
         return self.payment
 
 
+class CostEstimation(models.Model):
+    area = models.IntegerField()
+
+    def __str__(self):
+        return self.area
