@@ -44,6 +44,10 @@ urlpatterns = [
 
 
     path('cost_estimation/', views.cost_estimation_details, name="cost_estimation"),
+    #for printing pdf
+    path('cost_estimation_pdf/', views.cost_estimation_pdf_view, name='cost_pdf_view'),
+    # for direct downloading pdf
+    path('cost_estimation_pdf_download/', views.cost_estimation_pdf_download.as_view(), name='cost_pdf_download')
 
     path('register-surveyor/', views.register_surveyor, name="register_surveyor"),
     path('surveyor-list/<str:filter>/', views.surveyor_list, name="surveyor_list"),

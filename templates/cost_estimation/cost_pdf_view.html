@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style type="text/css">
+    @page {
+        size: a4 portrait;
+        @frame header_frame {           /* Static Frame */
+            -pdf-frame-content: header_content;
+            left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+        }
+        @frame content_frame {          /* Content Frame */
+            left: 50pt; width: 512pt; top: 10pt; height: 632pt;
+        }
+        @frame footer_frame {           /* Another static Frame */
+            -pdf-frame-content: footer_content;
+            left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+        }
+    }
+    table{
+        text-align: center;
+    }
+
+    .first_row{
+        padding: 7px;
+        
+    }
+    .first_row td{
+        font-size: 13px;
+    }
+    .odd{
+        
+        background-color: #eceaea;
+
+    }
+    .odd td{
+    border-top: 1px solid #e7eaec;
+    line-height: 1.42857;
+    padding: 7px;
+    vertical-align: top;
+    font-size: 11px;
+    }
+    .even{
+        background-color: white;
+    }
+    .even td{
+    font-size: 11px;
+    border-top: 1px solid #e7eaec;
+    line-height: 1.42857;
+    padding: 7px;
+    vertical-align: top;
+    }
+
+    .total{
+        background-color: #1ab394;
+    }
+    .total td{
+    color:white;
+    font-size: 13px;
+    border-top: 1px solid #e7eaec;
+    line-height: 1.42857;
+    padding: 7px;
+    vertical-align: top;  
+    }
+    </style>
+</head>
+<body>
+
+        <table class="main">
+          <tr class="first_row">
+
+            <td><strong>Resource </strong></td>
+            <td><strong> Unit </strong></td>
+            <td><strong>Quantity </strong></td>
+            <td><strong>Amount </strong></td>
+            </tr>
+            {# after for loop #}
+            {#  {% if forloop.counter|divisibleby:2 %} #}
+                        <tr class="odd">
+
+                        <td>Cement</td>
+                        <td>Bag</td>
+                        <td>10</td>
+                        <td>$64</td>
+                        </tr>
+            {# {% else %} #}
+                        <tr class="even">
+                        <td>Steel</td>
+                        <td>KG</td>
+                        <td>10</td>
+                        <td>$50</td>
+                        </tr>
+                        <tr class="odd">
+                        <td>Brick</td>
+                        <td>Per Piece</td>
+                        <td>10</td>
+                        <td>$10</td>
+                        </tr>
+                        <tr class="even">
+                        <td>Aggregate</td>
+                        <td>Per Cubic feet</td>
+                        <td>10</td>
+                        <td>$25</td>
+                        </tr>
+                        <tr class="odd">
+                        <td>Sand</td>
+                        <td>Per Cubic feet</td>
+                        <td>10</td>
+                        <td>$25</td>
+                        </tr>
+                        <tr class="even">
+                        <td>Flooring</td>
+                        <td>Per Sq feet</td>
+                        <td>10</td>
+                        <td>$25</td>
+                        </tr>
+                        <tr class="odd">
+                        <td>Painting</td>
+                        <td>Per Sq feet</td>
+                        <td>10</td>
+                        <td>$25</td>
+                        </tr>
+                        <tr class="even">
+                        <td>Sanitary Fittings</td>
+                        <td>Per Sq feet</td>
+                        <td>10</td>
+                        <td>$25</td>
+                        </tr>
+                        <tr class="odd">
+                        <td>Electric Fittings</td>
+                        <td>Per Sq feet</td>
+                        <td>10</td>
+                        <td>$25</td>
+                        </tr>
+
+                        <tr class="total">
+                        <td><stong >Total</stong></td>
+                        <td> </td>
+                        <td> </td>
+                        <td><strong> 250$</strong></td>
+                        </tr>
+
+        
+        </table>
+                
+
+
+</body>
+</html>
