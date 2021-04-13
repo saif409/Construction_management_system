@@ -6,6 +6,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.core.mail import send_mail
+from supply_management.models import Stock
 
 
 # Create your views here.
@@ -37,9 +38,10 @@ def user_logout(request):
 
 
 def home(request):
-
+    stock_obj = Stock.objects.count()
+    
     context={
-        "isact_home": "active"
+        "isact_home": "active",
+        'stock':stock_obj
     }
     return render(request, "admin_home.html", context)
-

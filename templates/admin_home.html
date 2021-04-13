@@ -8,7 +8,11 @@
     </div>
 {% endif %}
 
-
+    {% if stock <= 20 %}
+<marquee width="100%" direction="left" height="50px" style="background-color: red; color: white;">
+    <p style='font-size: 15px; padding: 10px;'> Your Stck is less in amount . Please add Shock</p>
+    </marquee>
+    {% endif %}
 
 <div class="row" style="margin-top:40px;">
     <div class="col-lg-4">
