@@ -13,7 +13,7 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 
 from .models import Supply, Supplier, Stock, Material, Labour, LabourTypes, StockManagement, ConstructionSite, \
-    LabourWorkTime, Client, Author
+    LabourWorkTime, Client, Author, SiteManageger
 
 
 # Create your views here.
@@ -44,7 +44,7 @@ def supply_add(request):
 
 
 def supply_list(request):
-    obj = Supply.objects.all()
+    obj = Supply.objects.all()[::-1]
     context={
         "obj":obj,
         "isact_supply": "active",
@@ -94,11 +94,18 @@ def supply_remove(request, id):
     return redirect('list')
 
 
-def add_supplier(request):
+def supplier_list(request):
     sup_obj = Supplier.objects.all()[::-1]
     context={
-        "supplier":sup_obj,
-        "isact_supplier": "active",
+        "sup_obj":sup_obj,
+        'isact_supplier': 'active'
+    }
+    return render(request, "supply_management/supplier_list.html", context)
+
+
+def add_supplier(request):
+    context={
+        'isact_supplier': 'active'
     }
     if request.method == "POST":
         name = request.POST.get("name")
@@ -114,9 +121,11 @@ def add_supplier(request):
 
 
 def update_supplier(request, id):
+
     supplier_obj = get_object_or_404(Supplier, id=id)
     context={
-        "supplier":supplier_obj
+        "supplier":supplier_obj,
+        'isact_supplier': 'active'
     }
     if request.method == "POST":
         supplier_obj.name = request.POST.get("name")
@@ -289,17 +298,6 @@ def remove_labour(request, id):
     messages.success(request, "Labour removed successfully")
     return redirect('labour_list')
 
-
-def stock_list(request):
-    obj = Stock.objects.all()[::-1]
-    stock_obj = Stock.objects.all()
-    total_quantity = stock_obj.aggregate(Sum('quantity'))['quantity__sum']
-    context={
-        "obj":obj,
-        'isact_stocklist': 'active',
-        "total_quantity":total_quantity
-    }
-    return render(request, "stock/stock_list.html",context)
 
 def remove_stock(request, id):
     obj = get_object_or_404(Stock, id=id)
@@ -500,15 +498,12 @@ def render_to_pdf(template_src, context_dict={}):
 
 class cost_estimation_pdf_download(View):
 	def get(self, request, *args, **kwargs):
-		
 		pdf = render_to_pdf('cost_estimation/cost_pdf_view.html')
-
 		response = HttpResponse(pdf, content_type='application/pdf')
 		filename = 'Invoice_%s.pdf' %("12341231")
 		content = "attachment; filename= %s" %(filename)
 		response['Content-Disposition'] = content
 		return response
-
 
 
 def register_surveyor(request):
@@ -628,67 +623,102 @@ def view_surveyor(request, id):
     else:
         return redirect('login')
 
-# def stock_list(request):
-#     obj = Stock.objects.all()[::-1]
-#     stock_obj = Stock.objects.all()
-#     total_quantity = stock_obj.aggregate(Sum('quantity'))['quantity__sum']
-#     site_obj = SiteManageger.objects.filter(is_approve=True)
-#     total_quantity_site = site_obj.aggregate(Sum('quantity'))['quantity__sum']
-#     if total_quantity_site is None :
-#         total_quantity_site = 0
-#     elif total_quantity is None:
-#         total_quantity =0
-#     total =int(total_quantity)-int(total_quantity_site)
-#
-#     context={
-#         "obj":obj,
-#         "total":int(total),
-#         "total_quantity":int(total_quantity),
-#         "total_quantity_site":total_quantity_site,
-#         "isact_stock": "active",
-#     }
-#     return render(request, "stock/stock_list.html", context)
-#
-#
+def stock_list(request):
+    obj = Stock.objects.all()[::-1]
+    stock_obj = Stock.objects.all()
+    total_quantity = stock_obj.aggregate(Sum('quantity'))['quantity__sum']
+    site_obj = SiteManageger.objects.filter(is_approve=1)
+    total_quantity_site = site_obj.aggregate(Sum('quantity'))['quantity__sum']
+    if total_quantity_site is None:
+        total_quantity_site = 0
+    if total_quantity is None:
+        total_quantity = 0
+    total =total_quantity - total_quantity_site
 
-#
-#
-# def site_manager_request_list(request, filter):
-#     obj = None
-#     if filter == 'None':
-#         obj = SiteManageger.objects.all()[::-1]
-#     elif filter == 'Approved':
-#         obj = SiteManageger.objects.all().filter(is_approve=True)[::-1]
-#     elif filter == 'Pending':
-#         obj = SiteManageger.objects.all().filter(is_approve=False)[::-1]
-#
-#     site_obj = SiteManageger.objects.filter(is_approve=True)
-#     total_quantity = site_obj.aggregate(Sum('quantity'))['quantity__sum']
-#     context = {
-#         "obj":obj,
-#         'total_required_quantity': total_quantity,
-#         "isact_site_manager": "active",
-#     }
-#     return render(request, "stock/site_manager_request_list.html", context)
-#
-#
-# def site_manager_request(request):
-#     if request.method == "POST":
-#         category = request.POST.get("category")
-#         material = request.POST.get("material")
-#         quantity = request.POST.get("quantity")
-#         manager_obj = SiteManageger(category=category, material=material, quantity=quantity, site_manager=request.user)
-#         manager_obj.save()
-#         messages.success(request, "Your Request Send to our Admin, Please Wait for his approval")
-#         return redirect('site_manager_request_list', filter='None')
-#     context={
-#         "isact_site_manager": "active",
-#     }
-#     return render(request, "stock/site_manager_request.html", context)
-#
-#
-# def site_manager_request_delete(request, id):
-#     obj = get_object_or_404(SiteManageger, id=id)
-#     obj.delete()
-#     messages.success(request, "Successfully Remove")
-#     return redirect('site_manager_request_list', filter='None')
+    context={
+        "obj":obj,
+        "total":total,
+        "total_quantity":int(total_quantity),
+        "total_quantity_site":total_quantity_site,
+        "isact_stocklist": "active",
+    }
+    return render(request, "stock/stock_list.html", context)
+
+
+def site_manager_request_list(request, filter):
+    obj = None
+    if filter == 'Pending':
+        obj = SiteManageger.objects.all().filter(is_approve=2)[::-1]
+    elif filter == 'Approved':
+        obj = SiteManageger.objects.all().filter(is_approve=1)[::-1]
+    elif filter == 'Rejected':
+        obj = SiteManageger.objects.all().filter(is_approve=3)[::-1]
+
+    site_obj = SiteManageger.objects.filter(is_approve=True)
+    total_quantity = site_obj.aggregate(Sum('quantity'))['quantity__sum']
+    context = {
+        "obj":obj,
+        'total_required_quantity': total_quantity,
+        "isact_sitemanager": "active",
+    }
+    return render(request, "stock/site_manager_request_list.html", context)
+
+def site_manager_request(request):
+    if request.method == "POST":
+        category = request.POST.get("category")
+        material = request.POST.get("material")
+        quantity = request.POST.get("quantity")
+        manager_obj = SiteManageger(category=category, material=material, quantity=quantity, site_manager=request.user)
+        manager_obj.save()
+        messages.success(request, "Your Request Send to our Admin, Please Wait for his approval")
+        return redirect('site_manager_request_list', filter='Pending')
+    context={
+        "isact_site_manager": "active",
+    }
+    return render(request, "stock/site_manager_request.html", context)
+
+def site_manager_update(request, id):
+    obj = get_object_or_404(SiteManageger, id=id)
+    context={
+        "obj":obj
+    }
+    if request.method == "POST":
+        obj.is_approve = request.POST.get("is_approve")
+        obj.save()
+        messages.success(request, "Site Manager Request Update Successfully ")
+        return redirect('site_manager_request_list', filter='Pending')
+    return render(request, "stock/site_manageger_request_update.html", context)
+
+def site_manager_request_delete(request, id):
+    obj = get_object_or_404(SiteManageger, id=id)
+    obj.delete()
+    messages.success(request, "Successfully Remove")
+    return redirect('site_manager_request_list', filter='Pending')
+
+def estimate(request):
+    return render(request, "cost_estimation/estimate_page.html")
+
+
+def material(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            material_name = request.POST.get("material_name")
+            type = request.POST.get("type")
+            mat_obj = Material(material_name = material_name,type =type)
+            mat_obj.save()
+            messages.success(request, "Country Added Successfully")
+        get_material = Material.objects.all()[::-1]
+        context = {
+            "get_material": get_material,
+            'isact_material': 'active',
+        }
+        return render(request, "add/add_material.html", context)
+    else:
+        return redirect('login')
+
+
+def material_remove(request, id):
+    obj = get_object_or_404(Material, id=id)
+    obj.delete()
+    messages.success(request, "Material Remove Successfully")
+    return redirect('material_list')

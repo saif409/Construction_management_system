@@ -8,6 +8,7 @@ urlpatterns = [
     path('remove/<int:id>/', views.supply_remove, name="supply_remove"),
 
     path('add-supplier/', views.add_supplier, name="add_supplier"),
+    path('supplier-list/', views.supplier_list, name="supplier_list"),
     path('update-supplier/<int:id>/', views.update_supplier, name="update_supplier"),
     path('remove-supplier/<int:id>/', views.remove_supplier, name="remove_supplier"),
 
@@ -42,23 +43,27 @@ urlpatterns = [
     path('client-list/', views.client_list, name="client_list"),
 
 
-
-    path('cost_estimation/', views.cost_estimation_details, name="cost_estimation"),
-    #for printing pdf
-    path('cost_estimation_pdf/', views.cost_estimation_pdf_view, name='cost_pdf_view'),
-    # for direct downloading pdf
-    path('cost_estimation_pdf_download/', views.cost_estimation_pdf_download.as_view(), name='cost_pdf_download')
-
     path('register-surveyor/', views.register_surveyor, name="register_surveyor"),
     path('surveyor-list/<str:filter>/', views.surveyor_list, name="surveyor_list"),
     path('surveyor-details/<int:id>/', views.view_surveyor, name="view_surveyor"),
     path('update-surveyor/<int:id>/', views.update_surveyor, name="update_surveyor"),
     path('remove-surveyor/<int:id>/', views.remove_surveyor, name="remove_surveyor"),
 
-    # path('site-manager-request', views.site_manager_request, name="site_manager_request"),
-    # path('site-manager-request-list/<str:filter>/', views.site_manager_request_list, name="site_manager_request_list"),
-    # path('site-manager-request-list/<str:filter>/', views.site_manager_request_list, name="site_manager_request_list"),
-    # path('site-manager-request-delete/<int:id>/', views.site_manager_request_delete, name="site_manager_request_delete")
-    #
+    path('site-manager-request', views.site_manager_request, name="site_manager_request"),
+    path('site-manager-request-list/<str:filter>/', views.site_manager_request_list, name="site_manager_request_list"),
+    path('site-manager-request-delete/<int:id>/', views.site_manager_request_delete, name="site_manager_request_delete"),
+    path('site-manager-update/<int:id>/', views.site_manager_update, name="site_manager_update"),
+
+
+    path('cost_estimation/', views.cost_estimation_details, name="cost_estimation"),
+    path('cost_estimation_pdf/', views.cost_estimation_pdf_view, name='cost_pdf_view'),
+    path('cost_estimation_pdf_download/', views.cost_estimation_pdf_download.as_view(), name='cost_pdf_download'),
+    path('estimate/', views.estimate, name='estimate'),
+
+
+    path('material_list/', views.material, name='material_list'),
+    path('material_remove/<int:id>/', views.material_remove, name='material_remove'),
+
+
 
 ]

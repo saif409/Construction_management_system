@@ -38,7 +38,7 @@
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table align-items-center table-flush" id="surveyorList">
+                            <table class="table align-items-center table-flush" id="list">
                                 <thead class="thead-light">
                                 <tr>
                                     <th data-sort="name">Sl no</th>
@@ -111,3 +111,12 @@
 </div>
 
 {% include 'footer.html' %}
+<script>
+    $(document).ready(function (){
+         $('#list').DataTable(
+             {
+            "ordering":false
+            }
+        )
+    })
+</script>

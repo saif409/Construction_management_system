@@ -31,6 +31,10 @@
                                            href="{% url 'add_new_labour' %}">
                                             Add New Labour
                                         </a>
+                                        <a class="mr-2 btn btn-primary btn-sm float-right"
+                                           href="{% url 'labour_type' %}">
+                                            Add New Labour Type
+                                        </a>
 
                                     </div>
                                 </div>
@@ -38,7 +42,7 @@
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table align-items-center table-flush" id="surveyorList">
+                            <table class="table align-items-center table-flush" id="list">
                                 <thead class="thead-light">
                                 <tr>
                                     <th data-sort="name">Sl no</th>
@@ -108,15 +112,12 @@
 </div>
 
 {% include 'footer.html' %}
-{##}
-{#<script>#}
-{#    $(document).ready(function () {#}
-{#        $('#surveyorList').DataTable(#}
-{#            {#}
-{#                language: {#}
-{#                    searchPlaceholder: "Search records",#}
-{#                    search: "",#}
-{#                }#}
-{#            })#}
-{#    })#}
-{#</script>#}
+
+<script>
+    $(document).ready(function () {
+        $('#list').DataTable(
+            {
+                "ordering":false
+            })
+    })
+</script>

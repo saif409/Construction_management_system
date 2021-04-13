@@ -2,14 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1002798-7616-4835-8a74-7f0003bb22d8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/cost_estimation/cost_pdf_view.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sadmin/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/sadmin/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/supply_management/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/supply_management/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/supply_management/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/supply_management/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/supply_management/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/supply_management/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/supply_management/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/supply_management/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/client/client_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/client/client_list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/cost_estimation/cost_estimation_pdf.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cost_estimation/cost_estimation_pdf.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/labour/labour_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/labour/labour_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/labour/labour_type_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/labour/labour_type_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/labour/work_time_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/labour/work_time_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/stock/site_manager_request_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/stock/site_manager_request_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/stock/stock_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/stock/stock_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/supply_management/add_new_supplier.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/supply_management/add_new_supplier.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/supply_management/supply_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/supply_management/supply_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/surveyor/register_surveyor.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/surveyor/register_surveyor.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/surveyor/surveyor_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/surveyor/surveyor_list.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,13 +47,18 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="K:\construction_management_system\templates" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="construction_management_system" type="Python.DjangoServer" factoryName="Django server">
@@ -88,7 +103,9 @@
       <workItem from="1618149647258" duration="4166000" />
       <workItem from="1618197314232" duration="11057000" />
       <workItem from="1618235638733" duration="1603000" />
-      <workItem from="1618242982988" duration="2273000" />
+      <workItem from="1618242982988" duration="4058000" />
+      <workItem from="1618292588555" duration="8189000" />
+      <workItem from="1618328425702" duration="2264000" />
     </task>
     <servers />
   </component>

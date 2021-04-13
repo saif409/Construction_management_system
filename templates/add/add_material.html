@@ -1,6 +1,8 @@
 {% include 'header.html' %}
 {% load static %}
 
+
+
 <div class="main-content" id="panel" style="margin-top:5px;">
     <div class="col-lg-12">
         {% if messages %}
@@ -24,7 +26,7 @@
                     <div class="card-header bg-primary">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">Add New Labour Type</h3>
+                                <h3 class="mb-0">Add Material</h3>
                             </div>
                         </div>
                     </div>
@@ -35,10 +37,14 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label>Labour Type&nbsp;<span style="color:red;">*</span></label>
-                                            <input type="text" name="labour_types" id="input-country"
-                                                   pattern="[A-Za-z,]{3,40}" placeholder="Enter Labour type"
-                                                   title="First Name must be between 3 and 40 characters in length and contains only letters" class="form-control" required>
+                                            <label>Material Name&nbsp;<span style="color:red;">*</span></label>
+                                            <input type="text" name="material_name" id="input-country" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Type&nbsp;<span style="color:red;">*</span></label>
+                                            <input type="text" name="type" id="input-country" class="form-control" required>
                                         </div>
                                         <button class="btn btn-primary float-right" type="submit" style="">Create</button>
                                     </div>
@@ -60,7 +66,7 @@
         <div class="card-header">
             <div class="row align-items-center">
                 <div class="col-8">
-                    <h3 class="mb-0">Labour Type List</h3>
+                    <h3 class="mb-0">Added Material List</h3>
                 </div>
             </div>
         </div>
@@ -71,65 +77,40 @@
                     <thead class="thead-light">
                     <tr>
                         <th scope="col" class="sort" data-sort="SL NO">SN</th>
-                        <th scope="col" class="sort" data-sort="title">Labour Type</th>
+                        <th scope="col" class="sort" data-sort="title">Material Name</th>
+                        <th scope="col" class="sort" data-sort="title">Type</th>
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
 
                     <tbody class="list">
-                    {% for c in labour_type %}
+                    {% for m in get_material %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ c.labour_types }}</td>
+                        <td>{{ m.material_name }}</td>
+                        <td>{{ m.type }}</td>
                         <td style="width: 10%">
                             <div class="btn-group">
-                                <a href="" data-toggle="modal" id="{{c.id}}" data-target="#surve_update{{c.id}}"><button class="btn btn-info fa fa-edit" style="margin-right: 5px"></button></a>
-                                <a href="" data-toggle="modal" id="{{c.id}}" data-target="#surve_delete{{c.id}}">
+                                <a href="" data-toggle="modal" id="{{m.id}}" data-target="#surve_delete{{m.id}}">
                                     <button class="btn btn-danger fa fa-trash"></button></a>
                             </div>
                         </td>
 
                     </tr>
-                    <div class="modal fade" id="surve_update{{c.id}}" tabindex="-1" role="dialog"
-                         aria-labelledby="exampleModalLabel" aria-hidden="false">
-                        <div class="modal-dialog" role="document">
-                          <div class="card">
-                            <div class="card-header bg-primary">Update Labour Type</div>
-                            <div class="card-body">
-                                <form method="POST" action="{% url 'update_labour_type' id=c.id %}">
-                                    {% csrf_token %}
-                                    <div class="pl-lg-4">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="form-group">
-                                                    <label>Labour Type&nbsp;<span style="color:#ff0000;">*</span></label>
-                                                    <input type="text" class="form-control" name="labour_types" id="input-country" value="{{ c.labour_types }}" required>
-                                                </div>
-                                                <button class="btn btn-primary float-right" type="submit" style="">Update</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-
-
-                    <div class="modal fade" id="surve_delete{{c.id}}" tabindex="-1" role="dialog"
+                    <div class="modal fade" id="surve_delete{{m.id}}" tabindex="-1" role="dialog"
                          aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Are you sure about deleting the following Objects?</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Are you sure about deleting the following Country?</h5>
                                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">×</span>
                                     </button>
                                 </div>
-                                <div class="modal-body">{{ c.labour_types }}</div>
+                                <div class="modal-body">{{ m.material_name}}</div>
                                 <div class="modal-footer">
                                     <button class="btn btn-danger" type="button" data-dismiss="modal">Cancel</button>
-                                    <a class="btn btn-primary" href="{% url 'remove_labour_type' id=c.id %}">Confirm Delete</a>
+                                    <a class="btn btn-primary" href="{% url 'material_remove' id=m.id %}">Confirm Delete</a>
                                 </div>
                             </div>
                         </div>
@@ -158,6 +139,7 @@
         )
     })
 </script>
+
 
 
 

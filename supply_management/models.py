@@ -167,3 +167,20 @@ class Author(models.Model):
 
     def __str__(self):
         return str(self.user)
+
+STATUS_CHOICES_SiteManageder = (
+    (1, 'Approved'),
+    (2, 'Pending'),
+    (3, 'Rejected'),
+)
+
+class SiteManageger(models.Model):
+    category = models.CharField(max_length=200)
+    material = models.CharField(max_length=200)
+    quantity = models.IntegerField()
+    site_manager = models.CharField(max_length=200)
+    is_approve =  models.IntegerField(choices=STATUS_CHOICES_SiteManageder, default=2)
+    created_at = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.category

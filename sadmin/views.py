@@ -37,6 +37,7 @@ def user_logout(request):
 
 
 def home(request):
+
     context={
         "isact_home": "active"
     }

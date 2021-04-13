@@ -17,7 +17,7 @@
                 <div class="card">
                     <div class="card-header bg-primary">
                         <div class="row align-items-center">
-                            <h4 class="text-blod" style="padding-left:20px;">All Users</h4>
+                            <h4 class="text-blod" style="padding-left:20px;">All Data Collectors</h4>
                         </div>
                     </div>
 
@@ -28,24 +28,27 @@
                                     <div class="col-lg-offset-6">
                                         <a class="btn btn-primary btn-sm float-right"
                                            href="{% url 'surveyor_list' filter='active' %}">
-                                            Active Users
+                                            Active Data Collector
                                         </a>
                                         <a class="mr-2 btn btn-primary btn-sm float-right"
                                            href="{% url 'surveyor_list' filter='inactive' %}">
-                                            InActive Users
+                                            InActive Data Collector
                                         </a>
                                         <a class="mr-2 btn btn-primary btn-sm float-right"
                                            href="{% url 'surveyor_list' filter='rejected' %}">
-                                            Rejected Users
+                                            Rejected Data Collector
                                         </a>
-
+                                        <a class="mr-2 btn btn-primary btn-sm float-right"
+                                           href="{% url 'register_surveyor' %}"><i class="fa fa-plus-circle"></i>
+                                            Add New User
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table align-items-center table-flush" id="surveyorList">
+                            <table class="table align-items-center table-flush" id="list">
                                 <thead class="thead-light">
                                 <tr>
                                     <th data-sort="name">Sl no</th>
@@ -67,6 +70,7 @@
                                         </td>
                                         <td>
                                             <span class="status">{{ user.designation }}</span><br>
+                                            <small>At Oxdora I Tech</small>
                                         </td>
                                         <td>
                                             <span class="status">{{ user.email }}</span>
@@ -106,7 +110,7 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalLabel">Are You Sure To
-                                                        Delete The Following User?</h5>
+                                                        Delete The Following Surveyor?</h5>
                                                     <button class="close" type="button" data-dismiss="modal"
                                                             aria-label="Close">
                                                         <span aria-hidden="true">×</span>
@@ -139,13 +143,11 @@
 {% include 'footer.html' %}
 
 <script>
-    $(document).ready(function () {
-        $('#surveyorList').DataTable(
-            {
-                language: {
-                    searchPlaceholder: "Search records",
-                    search: "",
-                }
-            })
+    $(document).ready(function (){
+         $('#list').DataTable(
+             {
+            "ordering":false
+            }
+        )
     })
 </script>
