@@ -11,23 +11,13 @@
     </div>
 {% endif %}
 
-
-<div class="row">
-    <div class="col-lg-8">
-        <label for="">Area</label>
-        <input type="text" name="area" class="form-control">
-
-    </div>
-    <button type="submit">Submit</button>
-</div>
-
 <div class="row">
 
     <div class="row container-fluid" style="margin-top:30px;">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header bg-info">
-                    <h5>Building Estimation Calculator</h5>
+                    <h4>Building Estimation Calculator : {{ obj.area }}</h4>
                 </div>
 
                 <div class="card-body">
@@ -54,62 +44,62 @@
 
                                                         <td>Cement</td>
                                                         <td>Bag</td>
-                                                        <td>10</td>
-                                                        <td>$64</td>
+                                                        <td>{{ required_cement }}</td>
+                                                        <td>{{ total_cement_price }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Steel</td>
                                                         <td>KG</td>
-                                                        <td>10</td>
-                                                        <td>$50</td>
+                                                        <td>{{ required_steel }}</td>
+                                                        <td>{{ total_steel_price }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Brick</td>
                                                         <td>Per Piece</td>
-                                                        <td>10</td>
-                                                        <td>$10</td>
+                                                        <td>{{ required_bricks }}</td>
+                                                        <td>{{ total_bricks_price }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Aggregate</td>
                                                         <td>Per Cubic feet</td>
-                                                        <td>10</td>
-                                                        <td>$25</td>
+                                                        <td>{{ required_sand }}</td>
+                                                        <td>{{ total_sand_price }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Sand</td>
                                                         <td>Per Cubic feet</td>
-                                                        <td>10</td>
-                                                        <td>$25</td>
+                                                        <td>{{ required_aggregate }}</td>
+                                                        <td>{{ total_aggregate_price }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Flooring</td>
                                                         <td>Per Sq feet</td>
-                                                        <td>10</td>
-                                                        <td>$25</td>
+                                                        <td>{{ required_flooring }}</td>
+                                                        <td>{{ total_flooring_price }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Painting</td>
                                                         <td>Per Sq feet</td>
-                                                        <td>10</td>
-                                                        <td>$25</td>
+                                                        <td>{{ required_painting }}</td>
+                                                        <td>{{ total_painting_price }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Sanitary Fittings</td>
                                                         <td>Per Sq feet</td>
-                                                        <td>10</td>
-                                                        <td>$25</td>
+                                                        <td>{{ required_sanitary_fittings }}</td>
+                                                        <td>{{ total_sanitary_fittings_price }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Electric Fittings</td>
                                                         <td>Per Sq feet</td>
-                                                        <td>10</td>
-                                                        <td>$25</td>
+                                                        <td>{{ required_electric_fitting }}</td>
+                                                        <td>{{ total_electric_fitting_price }}</td>
                                                     </tr>
                                                     <tr class="bg-primary">
                                                         <td>Total</td>
                                                         <td></td>
                                                         <td></td>
-                                                        <td>$25</td>
+                                                        <td>{{ total_price }}</td>
                                                     </tr>
 
 

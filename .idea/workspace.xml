@@ -8,18 +8,9 @@
       <change beforePath="$PROJECT_DIR$/supply_management/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/supply_management/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/supply_management/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/supply_management/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/supply_management/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/supply_management/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/client/client_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/client/client_list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/cost_estimation/cost_estimation_pdf.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cost_estimation/cost_estimation_pdf.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/cost_estimation/estimate_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cost_estimation/estimate_page.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/header.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/labour/labour_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/labour/labour_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/labour/labour_type_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/labour/labour_type_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/labour/work_time_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/labour/work_time_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/stock/site_manager_request_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/stock/site_manager_request_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/stock/stock_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/stock/stock_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/supply_management/add_new_supplier.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/supply_management/add_new_supplier.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/supply_management/supply_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/supply_management/supply_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/surveyor/register_surveyor.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/surveyor/register_surveyor.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/surveyor/surveyor_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/surveyor/surveyor_list.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +38,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/price" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -57,6 +48,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="K:\construction_management_system\templates\price" />
       <recent name="K:\construction_management_system\templates" />
     </key>
   </component>
@@ -105,7 +97,10 @@
       <workItem from="1618235638733" duration="1603000" />
       <workItem from="1618242982988" duration="4058000" />
       <workItem from="1618292588555" duration="8189000" />
-      <workItem from="1618328425702" duration="2264000" />
+      <workItem from="1618328425702" duration="5805000" />
+      <workItem from="1618371962996" duration="839000" />
+      <workItem from="1618373483657" duration="12237000" />
+      <workItem from="1618465427588" duration="1324000" />
     </task>
     <servers />
   </component>

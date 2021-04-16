@@ -1,12 +1,14 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+
 # Create your models here.
 class LabourTypes(models.Model):
     labour_types = models.CharField(max_length=200)
 
     def __str__(self):
         return self.labour_types
+
 
 class Labour(models.Model):
     name = models.CharField(max_length=200)
@@ -54,16 +56,16 @@ class Supply(models.Model):
         return self.supplier_company_name.name
 
 
-
 class Stock(models.Model):
     material = models.ForeignKey(Material, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
-    quantity = models.CharField(max_length = 200)
+    quantity = models.CharField(max_length=200)
     update_date = models.DateField(auto_now=True)
     update_by = models.CharField(max_length=200)
 
     def __str__(self):
         return self.name
+
 
 class Client(models.Model):
     name = models.CharField(max_length=200)
@@ -78,6 +80,7 @@ class Client(models.Model):
     def __str__(self):
         return self.name
 
+
 class ConstructionSite(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     location = models.CharField(max_length=200)
@@ -91,6 +94,7 @@ class ConstructionSite(models.Model):
     def __str__(self):
         return self.location
 
+
 class LabourWorkTime(models.Model):
     consturction_site = models.ForeignKey(ConstructionSite, on_delete=models.CASCADE)
     labour = models.ForeignKey(Labour, on_delete=models.CASCADE)
@@ -100,6 +104,7 @@ class LabourWorkTime(models.Model):
 
     def __str__(self):
         return self.labour.name
+
 
 class StockManagement(models.Model):
     construct_site = models.ForeignKey(ConstructionSite, on_delete=models.CASCADE)
@@ -116,12 +121,6 @@ class Invoice(models.Model):
     def __str__(self):
         return self.payment
 
-
-class CostEstimation(models.Model):
-    area = models.IntegerField()
-
-    def __str__(self):
-        return self.area
 
 ROLE_CHOICES = (
     (1, 'Admin'),
@@ -145,14 +144,14 @@ STATUS_CHOICES = (
 
 
 class Author(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE,  related_name='user_info')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_info')
     address = models.CharField(max_length=200)
-    profile_picture = models.ImageField(null=True,blank=True)
+    profile_picture = models.ImageField(null=True, blank=True)
     country = models.CharField(max_length=100)
     division = models.CharField(max_length=100)
     district = models.CharField(max_length=100)
     sub_district = models.CharField(max_length=100)
-    email = models.CharField(max_length=100,null=True, blank=True)
+    email = models.CharField(max_length=100, null=True, blank=True)
     graduation_subject = models.CharField(max_length=200)
     university = models.CharField(max_length=200)
     skills = models.CharField(max_length=200)
@@ -168,19 +167,60 @@ class Author(models.Model):
     def __str__(self):
         return str(self.user)
 
+
 STATUS_CHOICES_SiteManageder = (
     (1, 'Approved'),
     (2, 'Pending'),
     (3, 'Rejected'),
 )
 
+
 class SiteManageger(models.Model):
     category = models.CharField(max_length=200)
     material = models.CharField(max_length=200)
     quantity = models.IntegerField()
     site_manager = models.CharField(max_length=200)
-    is_approve =  models.IntegerField(choices=STATUS_CHOICES_SiteManageder, default=2)
+    is_approve = models.IntegerField(choices=STATUS_CHOICES_SiteManageder, default=2)
     created_at = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.category
+
+
+class CostEstimation(models.Model):
+    area = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.area
+
+
+class CementPrice(models.Model):
+    price = models.IntegerField(default=0)
+
+
+class SteelPrice(models.Model):
+    price = models.IntegerField(default=0)
+
+
+class BricksPrice(models.Model):
+    price = models.IntegerField(default=0)
+
+
+class AggregatePrice(models.Model):
+    price = models.IntegerField(default=0)
+
+class SandPrice(models.Model):
+    price = models.IntegerField(default=0)
+
+class FlooringPrice(models.Model):
+    price = models.IntegerField(default=0)
+
+class PaintingPrice(models.Model):
+    price = models.IntegerField(default=0)
+
+class SanitaryFittingsPrice(models.Model):
+    price = models.IntegerField(default=0)
+
+
+class ElectricFittingPrice(models.Model):
+    price = models.IntegerField(default=0)

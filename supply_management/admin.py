@@ -1,5 +1,8 @@
 from django.contrib import admin
-from .models import Supply,Supplier,Stock,Labour,LabourTypes,LabourWorkTime,ConstructionSite,Client,SiteManageger,StockManagement,Invoice,Material
+from .models import CementPrice,Supply,Supplier,Stock,Labour,LabourTypes,\
+    LabourWorkTime,CostEstimation,ConstructionSite,Client,SiteManageger,\
+    StockManagement,Invoice,Material,SteelPrice,BricksPrice,AggregatePrice,SandPrice,FlooringPrice,PaintingPrice,SanitaryFittingsPrice,ElectricFittingPrice
+
 
 # Register your models here.
 
@@ -15,5 +18,21 @@ admin.site.register(Invoice)
 admin.site.register(Material)
 admin.site.register(Client)
 admin.site.register(SiteManageger)
+admin.site.register(CostEstimation)
+admin.site.register(CementPrice)
+
+admin.site.register(SteelPrice)
+admin.site.register(BricksPrice)
+admin.site.register(AggregatePrice)
+admin.site.register(SandPrice)
+admin.site.register(FlooringPrice)
+admin.site.register(PaintingPrice)
+admin.site.register(SanitaryFittingsPrice)
+admin.site.register(ElectricFittingPrice)
+
+
+
+
+
 
 

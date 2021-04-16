@@ -55,7 +55,7 @@ urlpatterns = [
     path('site-manager-update/<int:id>/', views.site_manager_update, name="site_manager_update"),
 
 
-    path('cost_estimation/', views.cost_estimation_details, name="cost_estimation"),
+    path('cost_estimation/<int:id>/', views.cost_estimation_details, name="cost_estimation"),
     path('cost_estimation_pdf/', views.cost_estimation_pdf_view, name='cost_pdf_view'),
     path('cost_estimation_pdf_download/', views.cost_estimation_pdf_download.as_view(), name='cost_pdf_download'),
     path('estimate/', views.estimate, name='estimate'),
@@ -63,6 +63,17 @@ urlpatterns = [
 
     path('material_list/', views.material, name='material_list'),
     path('material_remove/<int:id>/', views.material_remove, name='material_remove'),
+
+
+    path('cement-price/', views.cement_price, name='cement_price'),
+    path('steel-price/', views.steel_price, name='steel_price'),
+    path('aggregate-price/', views.aggregate_price, name='aggregate_price'),
+    path('bricks-price/', views.bricks_price, name='bricks_price'),
+    path('electric-fitting-price/', views.electric_fitting_price, name='electric_fitting_price'),
+    path('flooring-price/', views.flooring_price, name='flooring_price'),
+    path('painting-price/', views.painting_price, name='painting_price'),
+    path('sand-price/', views.sand_price, name='sand_price'),
+    path('sanitary-price/', views.sanitary_price, name='sanitary_price'),
 
 
 

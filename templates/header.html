@@ -36,13 +36,16 @@
                 <a href="{% url 'surveyor_list' filter='None' %}"><i class="fa fa-list"></i> <span class="nav-label">All Users</span></a>
             </li>
 
-            {% if stock <= 20 %}
-            <li> <a href="#"  data-container="body" data-toggle="popover" data-placement="right" data-content="Your Stock is running Out. Plase add Stock " class="notification">
-                <span>Stock Notification</span>
-                <span class="badge" style="color:white; background-color: red;">1</span>
-              </a> </li>
 
-            {% endif %}
+            <li class="createsurvey ">
+                <a href="#"  data-container="body" data-toggle="popover" data-placement="right" data-content="Your Current Stock is running Out. Plase add Stock " class="notification">
+                <i class="fa fa-bell" aria-hidden="true"></i><span>Stock Notification</span>
+                {% if total <= 100 %}
+                    &nbsp;&nbsp;<span class="badge" style="color:white; background-color: red;">1</span>
+                {% endif %}
+              </a>
+            </li>
+
 
             <li class="createsurvey {{ isact_material }}">
                 <a href="{% url 'material_list' %}"><i class="fa fa-user-plus"></i> <span class="nav-label">Material</span></a>
@@ -51,7 +54,7 @@
                 <a href="{% url 'supplier_list' %}"><i class="fa fa-list"></i> <span class="nav-label">Supplier List</span></a>
             </li>
             <li class="supply {{ isact_supply }}">
-                <a href="{% url 'list' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Supply Management</span></a>
+                <a href="{% url 'list' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Supply List</span></a>
             </li>
             <li class="supply {{ isact_sitemanager }}">
                 <a href="{% url 'site_manager_request_list' filter='Pending' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">site manager request list</span></a>
@@ -76,6 +79,10 @@
             </li>
             <li class="dashboard {{ isact_costestimation }}">
                 <a href="{% url 'estimate' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Cost Estimation</span></a>
+            </li>
+
+            <li class="dashboard {{ isact_price }}">
+                <a href="{% url 'cement_price' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Price</span></a>
             </li>
 
 
