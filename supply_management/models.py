@@ -76,6 +76,7 @@ class Client(models.Model):
     date_of_birth = models.CharField(max_length=200)
     nid_number = models.CharField(max_length=200)
     photo = models.FileField()
+    created_at = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.name
@@ -124,16 +125,10 @@ class Invoice(models.Model):
 
 ROLE_CHOICES = (
     (1, 'Admin'),
-    (2, 'Supervisor'),
-    (3, 'User'),
-)
-
-REVIEW_CHOICES = (
-    (1, 'Onestar'),
-    (2, 'Twostar'),
-    (3, 'Threestar'),
-    (4, 'fourstar'),
-    (5, 'fivestar'),
+    (2, 'Supplier Manager'),
+    (3, 'Stock Manager'),
+    (4, 'Site Manager'),
+    (5, 'Labour Manager'),
 )
 
 STATUS_CHOICES = (

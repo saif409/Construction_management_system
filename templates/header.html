@@ -29,62 +29,182 @@
                     </a>
                 </div>
             </li>
-            <li class="dashboard {{ isact_home }}">
+
+            {% if request.user.is_superuser %}
+                <li class="dashboard {{ isact_home }}">
                 <a href="{% url 'home' %}"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
             </li>
-            <li class=" surveyorlist {{ isact_surveyorlist }}">
-                <a href="{% url 'surveyor_list' filter='None' %}"><i class="fa fa-list"></i> <span class="nav-label">All Users</span></a>
-            </li>
+                <li class=" surveyorlist {{ isact_surveyorlist }}">
+                    <a href="{% url 'surveyor_list' filter='None' %}"><i class="fa fa-list"></i> <span class="nav-label">All Users</span></a>
+                </li>
+                <li class="createsurvey ">
+                    <a href="#"  data-container="body" data-toggle="popover" data-placement="right" data-content="Your Current Stock is running Out. Plase add Stock " class="notification">
+                    <i class="fa fa-bell" aria-hidden="true"></i><span>Stock Notification</span>
+                    {% if total <= 100 %}
+                        &nbsp;&nbsp;<span class="badge" style="color:white; background-color: red;">1</span>
+                    {% endif %}
+                  </a>
+                </li>
+                <li class="createsurvey {{ isact_material }}">
+                    <a href="{% url 'material_list' %}"><i class="fa fa-user-plus"></i> <span class="nav-label">Material</span></a>
+                </li>
+                <li class="dashboard {{ isact_supplier }}">
+                    <a href="{% url 'supplier_list' %}"><i class="fa fa-list"></i> <span class="nav-label">Supplier List</span></a>
+                </li>
+                <li class="supply {{ isact_supply }}">
+                    <a href="{% url 'list' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Supply List</span></a>
+                </li>
+                <li class="supply {{ isact_sitemanager }}">
+                    <a href="{% url 'site_manager_request_list' filter='Pending' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">site manager request list</span></a>
+                </li>
+                <li class="stock {{ isact_stocklist }}">
+                    <a href="{% url 'stock_list' %}"><i class="fa fa-list" aria-hidden="true"></i><span class="nav-label">Stock</span></a>
+                </li>
+                <li class="stock {{ isact_stockmanagement }}">
+                    <a href="{% url 'stock_management' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Purchase Stock</span></a>
+                </li>
+                <li class="supply {{ isact_labourlist }}">
+                    <a href="{% url 'labour_list' %}"><i class="fa fa-list" aria-hidden="true"></i><span class="nav-label">Labour List</span></a>
+                </li>
+                <li class="stock {{ isact_labourworktime }}">
+                    <a href="{% url 'work_time_list' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Labour Work Time List</span></a>
+                </li>
+                <li class="dashboard {{ isact_clientlist }}">
+                    <a href="{% url 'client_list' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Client List</span></a>
+                </li>
+                <li class="dashboard {{ isact_costestimation }}">
+                    <a href="{% url 'estimate' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Cost Estimation</span></a>
+                </li>
+                <li class="dashboard {{ isact_price }}">
+                    <a href="{% url 'cement_price' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Price</span></a>
+                </li>
+            {% endif %}
 
+        {% if request.user.user_info.first.role == 1  %}
+                <li class="dashboard {{ isact_home }}">
+                    <a href="{% url 'home' %}"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
+                </li>
+                <li class=" surveyorlist {{ isact_surveyorlist }}">
+                    <a href="{% url 'surveyor_list' filter='None' %}"><i class="fa fa-list"></i> <span class="nav-label">All Users</span></a>
+                </li>
+                <li class="createsurvey ">
+                    <a href="#"  data-container="body" data-toggle="popover" data-placement="right" data-content="Your Current Stock is running Out. Plase add Stock " class="notification">
+                    <i class="fa fa-bell" aria-hidden="true"></i><span>Stock Notification</span>
+                    {% if total <= 100 %}
+                        &nbsp;&nbsp;<span class="badge" style="color:white; background-color: red;">1</span>
+                    {% endif %}
+                  </a>
+                </li>
+                <li class="createsurvey {{ isact_material }}">
+                    <a href="{% url 'material_list' %}"><i class="fa fa-user-plus"></i> <span class="nav-label">Material</span></a>
+                </li>
+                <li class="dashboard {{ isact_supplier }}">
+                    <a href="{% url 'supplier_list' %}"><i class="fa fa-list"></i> <span class="nav-label">Supplier List</span></a>
+                </li>
+                <li class="supply {{ isact_supply }}">
+                    <a href="{% url 'list' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Supply List</span></a>
+                </li>
+                <li class="supply {{ isact_sitemanager }}">
+                    <a href="{% url 'site_manager_request_list' filter='Pending' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">site manager request list</span></a>
+                </li>
+                <li class="stock {{ isact_stocklist }}">
+                    <a href="{% url 'stock_list' %}"><i class="fa fa-list" aria-hidden="true"></i><span class="nav-label">Stock</span></a>
+                </li>
+                <li class="stock {{ isact_stockmanagement }}">
+                    <a href="{% url 'stock_management' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Purchase Stock</span></a>
+                </li>
+                <li class="supply {{ isact_labourlist }}">
+                    <a href="{% url 'labour_list' %}"><i class="fa fa-list" aria-hidden="true"></i><span class="nav-label">Labour List</span></a>
+                </li>
+                <li class="stock {{ isact_labourworktime }}">
+                    <a href="{% url 'work_time_list' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Labour Work Time List</span></a>
+                </li>
+                <li class="dashboard {{ isact_clientlist }}">
+                    <a href="{% url 'client_list' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Client List</span></a>
+                </li>
+                <li class="dashboard {{ isact_costestimation }}">
+                    <a href="{% url 'estimate' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Cost Estimation</span></a>
+                </li>
+                <li class="dashboard {{ isact_price }}">
+                    <a href="{% url 'cement_price' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Price</span></a>
+                </li>
+        {% endif %}
+        {% if request.user.user_info.first.role == 2  %}
+                <li class="dashboard {{ isact_home }}">
+                    <a href="{% url 'home' %}"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
+                </li>
+                <li class="createsurvey {{ isact_material }}">
+                    <a href="{% url 'material_list' %}"><i class="fa fa-user-plus"></i> <span class="nav-label">Material</span></a>
+                </li>
+                <li class="dashboard {{ isact_supplier }}">
+                    <a href="{% url 'supplier_list' %}"><i class="fa fa-list"></i> <span class="nav-label">Supplier List</span></a>
+                </li>
+                <li class="supply {{ isact_supply }}">
+                    <a href="{% url 'list' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Supply List</span></a>
+                </li>
 
-            <li class="createsurvey ">
-                <a href="#"  data-container="body" data-toggle="popover" data-placement="right" data-content="Your Current Stock is running Out. Plase add Stock " class="notification">
-                <i class="fa fa-bell" aria-hidden="true"></i><span>Stock Notification</span>
-                {% if total <= 100 %}
-                    &nbsp;&nbsp;<span class="badge" style="color:white; background-color: red;">1</span>
-                {% endif %}
-              </a>
-            </li>
+                <li class="stock {{ isact_stocklist }}">
+                    <a href="{% url 'stock_list' %}"><i class="fa fa-list" aria-hidden="true"></i><span class="nav-label">Stock</span></a>
+                </li>
+        {% endif %}
 
+        {% if request.user.user_info.first.role == 3  %}
+                <li class="dashboard {{ isact_home }}">
+                    <a href="{% url 'home' %}"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
+                </li>
 
-            <li class="createsurvey {{ isact_material }}">
-                <a href="{% url 'material_list' %}"><i class="fa fa-user-plus"></i> <span class="nav-label">Material</span></a>
-            </li>
-            <li class="dashboard {{ isact_supplier }}">
-                <a href="{% url 'supplier_list' %}"><i class="fa fa-list"></i> <span class="nav-label">Supplier List</span></a>
-            </li>
-            <li class="supply {{ isact_supply }}">
-                <a href="{% url 'list' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Supply List</span></a>
-            </li>
-            <li class="supply {{ isact_sitemanager }}">
-                <a href="{% url 'site_manager_request_list' filter='Pending' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">site manager request list</span></a>
-            </li>
+                <li class="createsurvey {{ isact_material }}">
+                    <a href="{% url 'material_list' %}"><i class="fa fa-user-plus"></i> <span class="nav-label">Material</span></a>
+                </li>
 
-            <li class="stock {{ isact_stocklist }}">
-                <a href="{% url 'stock_list' %}"><i class="fa fa-list" aria-hidden="true"></i><span class="nav-label">Stock</span></a>
-            </li>
-            <li class="stock {{ isact_stockmanagement }}">
-                <a href="{% url 'stock_management' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Stock Management</span></a>
-            </li>
-            <li class="supply {{ isact_labourlist }}">
-                <a href="{% url 'labour_list' %}"><i class="fa fa-list" aria-hidden="true"></i><span class="nav-label">Labour List</span></a>
-            </li>
-            <li class="stock {{ isact_labourworktime }}">
-                <a href="{% url 'work_time_list' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Labour Work Time List</span></a>
-            </li>
+                <li class="stock {{ isact_stocklist }}">
+                    <a href="{% url 'stock_list' %}"><i class="fa fa-list" aria-hidden="true"></i><span class="nav-label">Stock</span></a>
+                </li>
+                <li class="stock {{ isact_stockmanagement }}">
+                    <a href="{% url 'stock_management' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Purchase Stock</span></a>
+                </li>
 
+                <li class="dashboard {{ isact_costestimation }}">
+                    <a href="{% url 'estimate' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Cost Estimation</span></a>
+                </li>
 
-            <li class="dashboard {{ isact_clientlist }}">
-                <a href="{% url 'client_list' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Client List</span></a>
-            </li>
-            <li class="dashboard {{ isact_costestimation }}">
-                <a href="{% url 'estimate' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Cost Estimation</span></a>
-            </li>
+        {% endif %}
 
-            <li class="dashboard {{ isact_price }}">
-                <a href="{% url 'cement_price' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Price</span></a>
-            </li>
+        {% if request.user.user_info.first.role == 4  %}
+                <li class="dashboard {{ isact_home }}">
+                    <a href="{% url 'home' %}"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
+                </li>
+                <li class="stock {{ isact_stocklist }}">
+                    <a href="{% url 'stock_list' %}"><i class="fa fa-list" aria-hidden="true"></i><span class="nav-label">Stock</span></a>
+                </li>
+                <li class="createsurvey {{ isact_material }}">
+                    <a href="{% url 'material_list' %}"><i class="fa fa-user-plus"></i> <span class="nav-label">Material</span></a>
+                </li>
+                <li class="supply {{ isact_labourlist }}">
+                    <a href="{% url 'labour_list' %}"><i class="fa fa-list" aria-hidden="true"></i><span class="nav-label">Labour List</span></a>
+                </li>
+                <li class="stock {{ isact_labourworktime }}">
+                    <a href="{% url 'work_time_list' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Labour Work Time List</span></a>
+                </li>
+                <li class="dashboard {{ isact_costestimation }}">
+                    <a href="{% url 'estimate' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Cost Estimation</span></a>
+                </li>
+                <li class="dashboard {{ isact_price }}">
+                    <a href="{% url 'cement_price' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Price</span></a>
+                </li>
+        {% endif %}
 
+        {% if request.user.user_info.first.role == 5  %}
+                <li class="dashboard {{ isact_home }}">
+                    <a href="{% url 'home' %}"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
+                </li>
+                <li class="supply {{ isact_labourlist }}">
+                    <a href="{% url 'labour_list' %}"><i class="fa fa-list" aria-hidden="true"></i><span class="nav-label">Labour List</span></a>
+                </li>
+                <li class="stock {{ isact_labourworktime }}">
+                    <a href="{% url 'work_time_list' %}"><i class="fa fa-grav" aria-hidden="true"></i><span class="nav-label">Labour Work Time List</span></a>
+                </li>
+        {% endif %}
 
             <li>
                 <a href="{% url 'user_logout' %}"><i class="fa fa-sign-out"></i> <span class="nav-label"> Logout</span></a>

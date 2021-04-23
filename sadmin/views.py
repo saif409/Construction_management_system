@@ -7,7 +7,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.core.mail import send_mail
-from supply_management.models import Stock, SiteManageger
+from supply_management.models import Stock, SiteManageger,Author,Labour,Client
 
 
 # Create your views here.
@@ -39,16 +39,24 @@ def user_logout(request):
 
 
 def home(request):
+    total_employee = Author.objects.all().count()
+    total_labour = Labour.objects.all().count()
+    total_client = Client.objects.all().count()
     stock_obj = Stock.objects.all()
     total_quantity = stock_obj.aggregate(Sum('quantity'))['quantity__sum']
     site_obj = SiteManageger.objects.filter(is_approve=1)
     total_quantity_site = site_obj.aggregate(Sum('quantity'))['quantity__sum']
     total = total_quantity - total_quantity_site
+    client_obj = Client.objects.all()[::-1]
 
     context={
+        "total_employee":total_employee,
+        "total_labour":total_labour,
+        "total_client":total_client,
         "isact_home": "active",
         'stock':total_quantity,
         'total_quantity':total_quantity_site,
-        "total":total
+        "total":total,
+        "client_obj":client_obj
     }
     return render(request, "admin_home.html", context)

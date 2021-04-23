@@ -1,11 +1,12 @@
 from django.contrib import admin
 from .models import CementPrice,Supply,Supplier,Stock,Labour,LabourTypes,\
     LabourWorkTime,CostEstimation,ConstructionSite,Client,SiteManageger,\
-    StockManagement,Invoice,Material,SteelPrice,BricksPrice,AggregatePrice,SandPrice,FlooringPrice,PaintingPrice,SanitaryFittingsPrice,ElectricFittingPrice
+    StockManagement,Invoice,Author,Material,SteelPrice,BricksPrice,AggregatePrice,SandPrice,FlooringPrice,PaintingPrice,SanitaryFittingsPrice,ElectricFittingPrice
 
 
 # Register your models here.
 
+admin.site.register(Author)
 admin.site.register(Supply)
 admin.site.register(Supplier)
 admin.site.register(Stock)

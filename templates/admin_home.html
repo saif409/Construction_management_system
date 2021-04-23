@@ -14,7 +14,9 @@
     </marquee>
     {% endif %}
 
-<div class="row" style="margin-top:40px;">
+
+
+<div class="row">
     <div class="col-lg-4">
         <div class="widget style1 navy-bg">
             <div class="row">
@@ -22,8 +24,8 @@
                     <i class="fa fa-briefcase fa-5x"></i>
                 </div>
                 <div class="col-8 text-right">
-                    <span> Total Assign Data Collector</span>
-                    <h2 class="font-bold">{{ total_assign_data_collector }}</h2>
+                    <span> Total Labour Work</span>
+                    <h2 class="font-bold">{{ total_labour }}</h2>
                 </div>
             </div>
         </div>
@@ -35,8 +37,8 @@
                     <i class="fa fa-users fa-5x"></i>
                 </div>
                 <div class="col-8 text-right">
-                    <span>Total Data Collector Created</span>
-                    <h2 class="font-bold">{{ total_data_collector }}</h2>
+                    <span>Total Employee</span>
+                    <h2 class="font-bold">{{ total_employee }}</h2>
                 </div>
             </div>
         </div>
@@ -48,8 +50,8 @@
                     <i class="fa fa-envelope-o fa-5x"></i>
                 </div>
                 <div class="col-8 text-right">
-                    <span> Total Data Received </span>
-                    <h2 class="font-bold">{{ total_data_collect }}</h2>
+                    <span> Total Client </span>
+                    <h2 class="font-bold">{{ total_client }}</h2>
                 </div>
             </div>
         </div>
@@ -62,9 +64,9 @@
     <div class="row container-fluid" style="margin-top:30px;">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header bg-primary">
                     <div class="row align-items-center">
-                        <h2 class="text-blod" style="padding-left:20px;">Recently Created Forms</h2>
+                        <h4 class="text-blod" style="padding-left:20px;">Client List</h4>
                     </div>
                 </div>
                 <div class="container-fluid" style="margin-top:30px;">
@@ -73,63 +75,61 @@
                             <thead class="widget style1 navy-bg">
                            <tr>
                                     <th>SL</th>
-                                    <th>Company Name</th>
-                                    <th>Purpose Of Visit</th>
-                                    <th>Assign By</th>
+                                    <th>Client Name</th>
+                                    <th>Phone</th>
+                                    <th>Address</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
 
-                            {% for data in data %}
+                            {% for c in client_obj %}
                                 <tr>
                                 <td>{{ forloop.counter }}</td>
-                                <td><a href="" class="h6">{{ data.company_name }}</a> <br/>
-                                    <small style="color:#fff;background-color:#e8583f;border-radius: 10px;padding-left:5px;padding-right:5px;">{{ data.created_at }}</small>
+                                <td><a href="" class="h6">{{ c.name }}</a> <br/>
+                                    <small style="color:#fff;background-color:#e8583f;border-radius: 10px;padding-left:5px;padding-right:5px;">{{ c.created_at }}</small>
                                 </td>
-                                <td>{{ data.purpose_of_visit }}<br/>
-                                    <small>{{ data.address }}</small>
-
+                                <td>{{ c.phone }}<br/>
                                 </td>
-                                <td>{{ data.assign_data_collector.username }}<br/>
-                                    <small>Assign By {{ data.assign_by }}</small>
+                                <td>{{ c.address }}<br/>
+                                    <small>{{ c.email }}</small>
                                 </td>
-                                <td>
+                                   <td style="width: 10%">
+                                            <div class="btn-group">
+                                                    <a href="{% url 'update_client' id=c.id %}" style="margin-right: 5px;"><button class="btn btn-info fa fa-edit"></button></a>
+                                                    <a href="" data-toggle="modal" id="{{ c.id }}" data-target="#surve_delete{{ c.id }}">
+                                                        <button class="btn btn-danger fa fa-trash"></button>
+                                                    </a>
+                                            </div>
+                                        </td>
+                                    </tr>
 
-                                    <a href="{% url 'view_form' id=data.id %}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
-                                    {% if request.user.is_superuser %}
-                                        <a href="{% url 'form_delete' id=data.id %}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                    {% endif %}
-                                </td>
+                                    <div class="modal fade" id="surve_delete{{ c.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Are You Sure To
+                                                        Delete The Following Client?</h5>
+                                                    <button class="close" type="button" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">{{ c.name }}</div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-danger" type="button" data-dismiss="modal">Cancel</button>
+                                                    <a class="btn btn-primary" href="{% url 'remove_client' id=c.id %}">Confirm Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-
-                            </tr>
                             {% endfor %}
 
 
                         </table>
                     </div>
                 </div>
-{#                <div class="card-footer py-4" style="margin-top:30px;">#}
-{#                      <nav aria-label="...">#}
-{#                         <div class="col-lg-offset-9">#}
-{#                            <div class="pagination">#}
-{#                                <span class="step-links">#}
-{#                                    {% if data.has_previous %}#}
-{#                                        <a href="?page=1">&laquo; first || </a>#}
-{#                                        <a href="?page={{ data.previous_page_number }}">previous</a>#}
-{#                                    {% endif %}#}
-{#                                    <span class="current">#}
-{#                                        Page {{ data.number }} of {{ data.paginator.num_pages }}.#}
-{#                                    </span>#}
-{#                                    {% if data.has_next %}#}
-{#                                        <a href="?page={{ data.next_page_number }}">next ||</a>#}
-{#                                        <a href="?page={{ data.paginator.num_pages }}">last &raquo;</a>#}
-{#                                    {% endif %}#}
-{#                                </span>#}
-{#                             </div>#}
-{#                          </div>#}
-{#                      </nav>#}
-{#                    </div>#}
+
 
             </div>
         </div>
