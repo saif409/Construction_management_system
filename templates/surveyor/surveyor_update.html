@@ -150,10 +150,16 @@
                                             Admin
                                           {% endifequal %}
                                           {% ifequal user.role 2 %}
-                                            Supervisor
+                                            Supplier Manager
                                           {% endifequal %}
                                           {% ifequal user.role 3 %}
-                                            User
+                                           Stock Manager
+                                          {% endifequal %}
+                                          {% ifequal user.role 4 %}
+                                            Site Manager
+                                          {% endifequal %}
+                                          {% ifequal user.role 5 %}
+                                           Labour Manager
                                           {% endifequal %}
                                       </span>
                                     </h6>
@@ -161,21 +167,33 @@
                                   <select name="role" id="" class="form-control">
 
                                         {% ifequal user.role 1 %}
-                                        <option value="1" selected>Admin</option>
+                                            <option value="1" selected>Admin</option>
                                         {% else %}
-                                        <option value="1">Admin</option>
+                                            <option value="1">Admin</option>
                                         {% endifequal %}
 
                                         {% ifequal user.role 2 %}
-                                          <option value="2" selected>Supervisor</option>
+                                            <option value="2" selected>Supplier Manager</option>
                                         {% else %}
-                                          <option value="2">Supervisor</option>
+                                            <option value="2">Supplier Manager</option>
                                         {% endifequal %}
 
                                         {% ifequal user.role 3 %}
-                                        <option value="3" selected>User</option>
+                                            <option value="3" selected>Stock Manager</option>
                                         {% else %}
-                                        <option value="3">User</option>
+                                            <option value="3">Stock Manager</option>
+                                        {% endifequal %}
+
+                                        {% ifequal user.role 4 %}
+                                            <option value="3" selected>Site Manager</option>
+                                        {% else %}
+                                            <option value="3">Site Manager</option>
+                                        {% endifequal %}
+
+                                        {% ifequal user.role 5 %}
+                                            <option value="3" selected>Labour Manager</option>
+                                        {% else %}
+                                            <option value="3">Labour Manager</option>
                                         {% endifequal %}
 
                                     </select>
