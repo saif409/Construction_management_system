@@ -16,9 +16,10 @@
         {% endif %}
     </div>
 
+</div>
 
-    <!-- Page content -->
-    <div class="container-fluid mt--6" style="margin-top:30px; padding-bottom: 50px">
+{% ifnotequal request.user.user_info.first.role  4 %}
+<div class="container-fluid mt--6" style="margin-top:30px; padding-bottom: 50px">
         <div class="row">
 
             <div class="col-xl-12 order-xl-1">
@@ -58,8 +59,7 @@
             </div>
         </div>
     </div>
-</div>
-
+{% endifnotequal %}
 
 <div class="col-xl-12 order-xl-1" style="margin-top:30px; padding-bottom: 100px">
     <div class="card">

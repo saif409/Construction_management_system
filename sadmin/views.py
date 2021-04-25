@@ -44,12 +44,18 @@ def home(request):
     total_client = Client.objects.all().count()
     stock_obj = Stock.objects.all()
     total_quantity = stock_obj.aggregate(Sum('quantity'))['quantity__sum']
+
     site_obj = SiteManageger.objects.filter(is_approve=1)
     total_quantity_site = site_obj.aggregate(Sum('quantity'))['quantity__sum']
+    if total_quantity_site is None:
+        total_quantity_site = 0
+    if total_quantity is None:
+        total_quantity = 0
     total = total_quantity - total_quantity_site
     client_obj = Client.objects.all()[::-1]
 
     context={
+        "obj":stock_obj,
         "total_employee":total_employee,
         "total_labour":total_labour,
         "total_client":total_client,

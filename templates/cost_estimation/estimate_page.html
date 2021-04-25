@@ -28,14 +28,23 @@
                         {% csrf_token %}
                         <div class="pl-lg-4">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-address">Area&nbsp;<span
                                                 style="color:red;">*</span></label>
-                                        <input id="input-address" name="area" class="form-control" type="text" required>
+                                        <input id="input-address" name="area" class="form-control" type="number" required>
                                     </div>
                                 </div>
-
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-address">Construction Site&nbsp;<span style="color:red;">*</span></label>
+                                        <select name="constrcution_site" class="form-control">
+                                            {% for cons_obj in cons_obj %}
+                                                <option value="{{ cons_obj.id }}">{{ cons_obj.location }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <button class="btn btn-primary float-right" type="submit" style="">Submit</button>
@@ -51,6 +60,7 @@
                             <thead class="thead-light">
                             <tr>
                                 <th data-sort="name">Sl no</th>
+                                <th data-sort="name">Contruction Site Name</th>
                                 <th data-sort="name">Area</th>
                                 <th>Action</th>
                             </tr>
@@ -61,8 +71,10 @@
                                 <th scope="row"><span class="name mb-0 text-sm">1</span>
                                 </th>
                                 <td>
+                                    <span class="status">{{ obj.constrcution_site }}</span><br>
+                                </td>
+                                <td>
                                     <span class="status">{{ obj.area }} sq feet</span><br>
-
                                 </td>
 
                                 <td style="width: 10%">

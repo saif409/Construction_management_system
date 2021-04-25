@@ -1,0 +1,108 @@
+{% include 'header.html' %}
+{% load static %}
+
+<div class="main-content" id="panel" style="margin-top:5px;">
+    <div class="col-lg-12">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert alert-primary" {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                {{ message}}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+
+    <!-- Page content -->
+    <div class="container-fluid mt--6" style="margin-top:30px; padding-bottom: 50px">
+        <div class="row">
+
+            <div class="col-xl-12 order-xl-1">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <h3 class="mb-0">Add Construction Site</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="pl-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Client<span style="color:red;">*</span></label>
+                                            <select name="client" class="form-control">
+                                                {% for get_client in get_client %}
+                                                    <option value="{{ get_client.id }}">{{ get_client.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Location&nbsp;<span style="color:red;">*</span></label>
+                                            <input type="text" name="location" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Land Area<span style="color:red;">*</span></label>
+                                            <input type="text" name="landarea" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Rajuk No<span style="color:red;">*</span></label>
+                                            <input type="number" name="rajuk_no" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Architect Name<span style="color:red;">*</span></label>
+                                            <input type="text" name="architect_name" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Architect Reg No&nbsp;<span style="color:red;">*</span></label>
+                                            <input type="number" name="architect_reg_no" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Starting Date<span style="color:red;">*</span></label>
+                                            <input type="date" name="starting_date" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>End Date<span style="color:red;">*</span></label>
+                                            <input type="date" name="end_date" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <button class="btn btn-info float-right" type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+
+

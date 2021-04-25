@@ -14,7 +14,9 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 
 from .models import Supply, Supplier, Stock, Material, Labour, LabourTypes, StockManagement, ConstructionSite, \
-    LabourWorkTime, Client, Author, SiteManageger, CostEstimation,CementPrice,SteelPrice,BricksPrice,AggregatePrice,SandPrice,FlooringPrice,PaintingPrice,SanitaryFittingsPrice,ElectricFittingPrice
+    LabourWorkTime, Client, Author, SiteManageger, CostEstimation, CementPrice, SteelPrice, BricksPrice, AggregatePrice, \
+    SandPrice, FlooringPrice, PaintingPrice, SanitaryFittingsPrice, ElectricFittingPrice, LabourPrice, \
+    SuppluStockUpdate, LabourRequest
 
 
 # Create your views here.
@@ -257,6 +259,57 @@ def remove_work_list(request, id):
     obj.delete()
     messages.success(request, "Work List Delete Successfully")
     return redirect('work_time_list')
+
+
+def labour_request_list(request, filter):
+    obj = None
+    if filter == 'Approved':
+        obj = LabourRequest.objects.all().filter(status=1)[::-1]
+    elif filter == 'Pending':
+        obj = LabourRequest.objects.all().filter(status=2)[::-1]
+    elif filter == 'Rejected':
+        obj = LabourRequest.objects.all().filter(status=3)[::-1]
+    context = {
+        "isact_labourrequestlist": "active",
+        "obj": obj
+    }
+    return render(request,"labour_request/labour_request_list.html", context)
+
+
+def add_labour_request(request):
+    context={
+        "isact_labourrequest":"active"
+    }
+    if request.method == "POST":
+        quantity = request.POST.get("quantity")
+        labour_type = request.POST.get("labour_type")
+        obj= LabourRequest(quantity=quantity,labour_type=labour_type)
+        obj.save()
+        messages.success(request, "Your Request Sent Successfully To Labour Manager")
+
+    return render(request, "labour_request/add_labour_request.html", context)
+
+
+def update_labour_request(request, id):
+    obj = get_object_or_404(LabourRequest, id=id)
+    context = {
+        "isact_labourrequest": "active",
+        "obj":obj
+    }
+    if request.method == "POST":
+        obj.quantity = request.POST.get("quantity")
+        obj.labour_type = request.POST.get("labour_type")
+        obj.status = request.POST.get("status")
+        obj.save()
+        messages.success(request, "Update Successfully")
+        return redirect('update_labour_request', id=id)
+    return render(request,"labour_request/update_labour_request.html", context)
+
+def remove_labour_request(request, id):
+    obj = get_object_or_404(LabourRequest, id=id)
+    obj.delete()
+    messages.success(request, "Delete Successfully")
+    return render(request,"labour_request")
 
 
 def add_labour_work_time(request):
@@ -531,16 +584,20 @@ def remove_client(request, id):
 
 
 def estimate(request):
+    cons_obj=ConstructionSite.objects.all()
     if request.user.is_authenticated:
         obj = CostEstimation.objects.last()
         context = {
+            'cons_obj':cons_obj,
             'obj': obj,
             'isact_costestimation': 'active'
         }
 
         if request.method == "POST":
+            constrcution_site_obj = request.POST.get("constrcution_site")
+            constrcution_site =ConstructionSite.objects.get(id=constrcution_site_obj)
             area = request.POST.get("area")
-            obj = CostEstimation(area=area)
+            obj = CostEstimation(area=area, constrcution_site=constrcution_site)
             obj.save()
             messages.success(request, "see the total calculate")
             return redirect('estimate')
@@ -577,9 +634,16 @@ def cost_estimation_details(request, id):
     get_electric_fitting = ElectricFittingPrice.objects.last()
     electric_fitting_price = get_electric_fitting.price
 
+    get_labour = LabourPrice.objects.last()
+    labourting_price = get_labour.price
+
     if request.user.is_authenticated:
         obj = get_object_or_404(CostEstimation, id=id)
         area_obj = obj.area
+
+        labour_per_day= 11 / 100
+        required_labour = int(labour_per_day * area_obj)
+        total_labour_price = int(labourting_price * required_labour)
 
         cement_per_square =45/100
         required_cement = int(cement_per_square*area_obj)
@@ -620,6 +684,9 @@ def cost_estimation_details(request, id):
 
         context={
             'obj':obj,
+            'required_labour':required_labour,
+            'total_labour_price':total_labour_price,
+
             'isact_costestimation':'active',
             "cemet_price":get_cement,
             "required_cement": required_cement,
@@ -1051,3 +1118,132 @@ def sanitary_price(request):
         'price': get_price
     }
     return render(request, "price/add/sanitary_price.html",context)
+
+
+def add_labour_price(request):
+    get_price = LabourPrice.objects.last()
+    if request.method == "POST":
+        price = request.POST.get("price")
+        obj = LabourPrice(price=price)
+        obj.save()
+        messages.success(request, "Price Update Successfully")
+        return redirect('add_labour_price')
+    context = {
+        'isact_price': 'active',
+        'price': get_price
+    }
+    return render(request, "price/add/add_labour_price.html", context)
+
+
+def construction_site_list(request):
+    obj = ConstructionSite.objects.all()
+    context={
+        "obj":obj,
+        "isact_constructionsite":"active"
+    }
+    return render(request, "construction_site/site_manager_list.html", context)
+
+def add_new_construction_site(request):
+    get_client = Client.objects.all()
+    context={
+        "get_client":get_client
+    }
+    if request.method == "POST":
+        client_obj = request.POST.get("client")
+        client = Client.objects.get(id=client_obj)
+        location = request.POST.get("location")
+        landarea = request.POST.get("landarea")
+        rajuk_no = request.POST.get("rajuk_no")
+        architect_name = request.POST.get("architect_name")
+        architect_reg_no = request.POST.get("architect_reg_no")
+        starting_date = request.POST.get("starting_date")
+        end_date = request.POST.get("end_date")
+        obj = ConstructionSite(client=client, location=location, landarea=landarea, rajuk_no=rajuk_no,
+                               architect_name=architect_name, architect_reg_no=architect_reg_no,
+                               starting_date=starting_date, end_date=end_date)
+        obj.save()
+        messages.success(request, "New Site Added Successfully")
+        return redirect('construction_list')
+    return render(request, "construction_site/add_new_construction_site.html", context)
+
+
+def update_construction_site(request, id):
+    get_client = Client.objects.all()
+    obj= get_object_or_404(ConstructionSite, id=id)
+    context={
+        "obj":obj,
+        "get_client":get_client
+    }
+    if request.method == "POST":
+        client_obj = request.POST.get("client")
+        obj.client = Client.objects.get(id=client_obj)
+        obj.location = request.POST.get("location")
+        obj.landarea = request.POST.get("landarea")
+        obj.rajuk_no = request.POST.get("rajuk_no")
+        obj.architect_name = request.POST.get("architect_name")
+        obj.architect_reg_no = request.POST.get("architect_reg_no")
+        obj.starting_date = request.POST.get("starting_date")
+        obj.end_date = request.POST.get("end_date")
+        obj.save()
+        messages.success(request, "Construction Site Update Successfully")
+        return redirect('construction_list')
+    return render(request, "construction_site/update_construction.html", context)
+
+
+
+def remove_contruction_site(request, id):
+    obj= get_object_or_404(ConstructionSite, id=id)
+    obj.delete()
+    messages.success(request, "Delete Successfully")
+    return redirect('construction_list')
+
+
+def stock_manager_request_list(request, filter):
+    obj = None
+    if filter == 'Approved':
+        obj = SuppluStockUpdate.objects.all().filter(is_approve=1)[::-1]
+    elif filter == 'Pending':
+        obj = SuppluStockUpdate.objects.all().filter(is_approve=2)[::-1]
+    elif filter == 'Rejected':
+        obj = SuppluStockUpdate.objects.all().filter(is_approve=3)[::-1]
+    context = {
+        "isact_requestlist": "active",
+        "obj": obj
+    }
+    return render(request, "stock/stock_manager_request_list.html", context)
+
+
+def stock_request_to_supplier(request):
+    if request.method == "POST":
+        stock_manager_name = request.POST.get("stock_manager_name")
+        material_type = request.POST.get("material_type")
+        quantity = request.POST.get("quantity")
+        description = request.POST.get("description")
+        obj = SuppluStockUpdate(stock_manager_name=stock_manager_name,material_type=material_type,quantity=quantity,description=description)
+        obj.save()
+        messages.success(request, "Your request Sent to The Supplier Manager, please Wait For Response")
+    return render(request, "stock/stock_request_supplier.html")
+
+
+def stock_manager_request_list_update(request, id):
+    obj = get_object_or_404(SuppluStockUpdate, id=id)
+    context={
+        "obj":obj
+    }
+    if request.method == "POST":
+        obj.stock_manager_name = request.POST.get("stock_manager_name")
+        obj.material_type = request.POST.get("material_type")
+        obj.quantity = request.POST.get("quantity")
+        obj.description = request.POST.get("description")
+        obj.is_approve = request.POST.get("is_approve")
+        obj.save()
+        messages.success(request, "Update Successfully")
+        return redirect("stock_manager_request_list_update", id=id)
+    return render(request, "stock/stock_manager_request_list_update.html", context)
+
+
+def stock_manager_request_list_remove(request, id):
+    obj = get_object_or_404(SuppluStockUpdate, id=id)
+    obj.delete()
+    messages.success(request, "Delete Successfully")
+    return redirect("stock_manager_request_list", filter="Pending")

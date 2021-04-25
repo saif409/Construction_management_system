@@ -183,6 +183,7 @@ class SiteManageger(models.Model):
 
 
 class CostEstimation(models.Model):
+    constrcution_site = models.ForeignKey(ConstructionSite, models.CASCADE)
     area = models.IntegerField(default=0)
 
     def __str__(self):
@@ -219,3 +220,32 @@ class SanitaryFittingsPrice(models.Model):
 
 class ElectricFittingPrice(models.Model):
     price = models.IntegerField(default=0)
+
+class LabourPrice(models.Model):
+    price = models.IntegerField(default=0)
+
+
+REQUEST_CHOICES = (
+    (1, 'Approved'),
+    (2, 'Pending'),
+    (3, 'Rejected'),
+)
+
+
+class SuppluStockUpdate(models.Model):
+    stock_manager_name = models.CharField(max_length=200)
+    material_type = models.CharField(max_length=200)
+    quantity = models.CharField(max_length=200)
+    description = models.TextField()
+    is_approve = models.IntegerField(choices=REQUEST_CHOICES, default=2)
+
+    def __str__(self):
+        return self.material_type
+
+class LabourRequest(models.Model):
+    quantity = models.CharField(max_length=200)
+    labour_type = models.CharField(max_length=200)
+    status = models.IntegerField(choices=REQUEST_CHOICES, default=2)
+
+    def __str__(self):
+        return self.quantity

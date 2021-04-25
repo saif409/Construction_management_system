@@ -1,0 +1,65 @@
+{% include 'header.html' %}
+{% load static %}
+<div class="main-content" id="panel" style="margin-top:10px;">
+    {% if messages %}
+    <div class="messages" style="margin-right:32px;">
+        {% for message in messages %}
+        <div class="alert alert-primary" {% if message.tags %}
+             class="{{ message.tags }}" {% endif %}>{{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+<div class="container-fluid" style="margin-top: 20px;">
+    <div class="card">
+
+        <div class="card-header bg-primary">
+            <h3>Update Labour Request</h3>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <th>Labour Type</th>
+                        <td><input type="text" class="form-control" name="labour_type" value="{{ obj.labour_type }}"/></td>
+                    </tr>
+                    <tr>
+                        <th>Quantity</th>
+                        <td><input class="form-control" type="number" name="quantity" value="{{ obj.quantity }}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td>
+                            <h6>Current :
+                                      <span class="text-success">
+                                          {% ifequal obj.status 1 %}
+                                            Approved
+                                          {% endifequal %}
+                                          {% ifequal obj.status 2 %}
+                                            Pending
+                                          {% endifequal %}
+                                          {% ifequal obj.status 3 %}
+                                            Rejected
+                                          {% endifequal %}
+                                      </span>
+                                    </h6>
+                            <select name="status" id="" class="form-control">
+                                <option value="1">Approve</option>
+                                <option value="2">Pending</option>
+                                <option value="3">Rejected</option>
+                            </select>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-primary float-right" type="submit">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}

@@ -26,6 +26,10 @@ urlpatterns = [
     path('work-time-list/', views.work_time_list, name="work_time_list"),
     path('remove-work-list/<int:id>/', views.remove_work_list, name="remove_work_list"),
 
+    path('add-labour-request/', views.add_labour_request, name="add_labour_request"),
+    path('labour-request-list/<str:filter>/', views.labour_request_list, name="labour_request_list"),
+    path('update-labour-request/<int:id>/', views.update_labour_request, name="update_labour_request"),
+    path('remove-labour-request/<int:id>/', views.remove_labour_request, name="remove_labour_request"),
 
     path('stock-list/', views.stock_list, name="stock_list"),
     path('remove-stock/<int:id>/', views.remove_stock, name="remove_stock"),
@@ -37,7 +41,7 @@ urlpatterns = [
     path('add/stock/management/', views.add_stock_management, name="add_stock_management"),
     path('update-stock-management/<int:id>/', views.update_stock_management, name="update_stock_management"),
 
-    path('add-new-client', views.add_new_client, name="add_new_client"),
+    path('add-new-client/', views.add_new_client, name="add_new_client"),
     path('update-client/<int:id>/', views.update_client, name="update_client"),
     path('remove-client/<int:id>/', views.remove_client, name="remove_client"),
     path('client-list/', views.client_list, name="client_list"),
@@ -74,6 +78,19 @@ urlpatterns = [
     path('painting-price/', views.painting_price, name='painting_price'),
     path('sand-price/', views.sand_price, name='sand_price'),
     path('sanitary-price/', views.sanitary_price, name='sanitary_price'),
+    path('labour-price/', views.add_labour_price, name='add_labour_price'),
+
+
+    path('construction-site-list/', views.construction_site_list, name='construction_list'),
+    path('add-new-construction-site/', views.add_new_construction_site, name='add_new_construction_site'),
+    path('remove-contruction-site/<int:id>/', views.remove_contruction_site, name='remove_contruction_site'),
+    path('update-construction-site/<int:id>/', views.update_construction_site, name='update_construction_site'),
+
+    path('stock_request_to_supplier/', views.stock_request_to_supplier, name="stock_request_to_supplier"),
+    path('stock_manager_request_list_update/<int:id>/', views.stock_manager_request_list_update, name="stock_manager_request_list_update"),
+    path('stock_manager_request_list_remove/<int:id>/', views.stock_manager_request_list_remove, name="stock_manager_request_list_remove"),
+    path('stock-manager-request-list/<str:filter>/', views.stock_manager_request_list, name='stock_manager_request_list'),
+
 
 
 
