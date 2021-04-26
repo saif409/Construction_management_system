@@ -743,24 +743,6 @@ def cost_estimation_pdf_view(request):
     return response
 
 
-def render_to_pdf(template_src, context_dict={}):
-	template = get_template(template_src)
-	html  = template.render(context_dict)
-	result = BytesIO()
-	pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
-	if not pdf.err:
-		return HttpResponse(result.getvalue(), content_type='application/pdf')
-	return None
-
-
-class cost_estimation_pdf_download(View):
-	def get(self, request, *args, **kwargs):
-		pdf = render_to_pdf('cost_estimation/cost_pdf_view.html')
-		response = HttpResponse(pdf, content_type='application/pdf')
-		filename = 'Invoice_%s.pdf' %("12341231")
-		content = "attachment; filename= %s" %(filename)
-		response['Content-Disposition'] = content
-		return response
 
 
 def register_surveyor(request):
