@@ -88,7 +88,8 @@
                         <div class="col-lg-6">
                           <div class="form-group">
                             <label class="form-control-label" for="input-password">Password&nbsp;<span style="color:red;">*</span></label>
-                            <input type="password" name="password" id="input-password" class="form-control" placeholder="Enter A Password" required >
+                            <input type="password" name="password" id="input-password" class="form-control" placeholder="Enter A Password"
+                                   pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="Password must be  (UpperCase, LowerCase, Number/SpecialChar and min 8 Chars)" required >
                           </div>
                         </div>
                         <div class="col-lg-6">

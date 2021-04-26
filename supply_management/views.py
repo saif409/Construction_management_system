@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.views.generic.base import View
 from django.contrib.auth.decorators import login_required
+from sadmin.models import Notification
 # for Pdf views
 # for pff import 
 from io import BytesIO
@@ -1247,3 +1248,23 @@ def stock_manager_request_list_remove(request, id):
     obj.delete()
     messages.success(request, "Delete Successfully")
     return redirect("stock_manager_request_list", filter="Pending")
+
+
+def notification_list(request):
+    noti_obj = Notification.objects.all()[::-1]
+    stock_obj = Stock.objects.all()
+    total_quantity = stock_obj.aggregate(Sum('quantity'))['quantity__sum']
+    site_obj = SiteManageger.objects.filter(is_approve=1)
+    total_quantity_site = site_obj.aggregate(Sum('quantity'))['quantity__sum']
+    if total_quantity_site is None:
+        total_quantity_site = 0
+    if total_quantity is None:
+        total_quantity = 0
+    total = total_quantity - total_quantity_site
+
+    context={
+        "total":total,
+        "notification":noti_obj,
+        "isact_notification":"active"
+    }
+    return render(request, "notification/notification_list.html", context)

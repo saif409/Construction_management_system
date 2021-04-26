@@ -92,6 +92,9 @@ urlpatterns = [
     path('stock-manager-request-list/<str:filter>/', views.stock_manager_request_list, name='stock_manager_request_list'),
 
 
+    path('notification-list/', views.notification_list, name='notification_list'),
+
+
 
 
 ]
