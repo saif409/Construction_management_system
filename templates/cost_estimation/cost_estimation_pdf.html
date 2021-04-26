@@ -1,5 +1,4 @@
 
-
 {% include 'header.html' %}
 {% load static %}
 {% if messages %}
@@ -11,7 +10,7 @@
     </div>
 {% endif %}
 
-<div class="row">
+<div class="row" >
 
     <div class="row container-fluid" style="margin-top:30px;">
         <div class="col-md-12">
@@ -30,7 +29,7 @@
                                     <div class="invoice p-3 mb-3">
                                         <div class="row">
                                             <div class="col-12 table-responsive">
-                                                <table class="table table-striped">
+                                                <table class="table table-striped" id="invoice">
                                                     <thead>
                                                     <tr>
                                                         <th>Resource</th>
@@ -111,6 +110,7 @@
 
                                                     </tbody>
                                                 </table>
+                                                <div id="editor"></div>
                                             </div>
                                             <!-- /.col -->
                                         </div>
@@ -118,13 +118,10 @@
                                         <div class="row no-print">
                                             <div class="col-12">
                                                 <button type="button" class="btn btn-primary float-right"
-                                                style="margin-right: 5px;">
-                                                <i class="fas fa-download"></i><a href="{% url 'cost_pdf_download' %}" style="color:white" > Download PDF</a>
+                                                style="margin-right: 5px;" id="download">
+                                                <i class="fas fa-download"></i><a href="" style="color:white" id="download" > Download PDF</a>
                                                 </button>
-                                                <button type="button" class="btn btn-primary float-right"
-                                                        style="margin-right: 5px;">
-                                                    <i class="fas fa-download"></i><a href="{% url 'cost_pdf_view' %}" style='color:white' target="_blank"> Print PDF</a>
-                                                </button>
+
                                             </div>
                                         </div>
                                     </div>
@@ -139,5 +136,22 @@
     </div>
 </div>
 
-
+<script >
+window.onload = function () {
+    document.getElementById("download")
+        .addEventListener("click", () => {
+            const invoice = this.document.getElementById("invoice");
+            console.log(invoice);
+            console.log(window);
+            var opt = {
+                margin: 1,
+                filename: 'costEstimation.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            html2pdf().from(invoice).set(opt).save();
+        })
+}
+    </script>
 {% include 'footer.html' %}
