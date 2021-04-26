@@ -93,6 +93,7 @@ urlpatterns = [
 
 
     path('notification-list/', views.notification_list, name='notification_list'),
+    path('remove-notification/<int:id>/', views.remove_notification, name='remove_notification'),
 
 
 

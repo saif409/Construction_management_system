@@ -113,9 +113,9 @@
                 <li class="dashboard {{ isact_home }}">
                     <a href="{% url 'home' %}"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
                 </li>
-                <li class="createsurvey ">
-                    <a href="#"  data-container="body" data-toggle="popover" data-placement="right" data-content="Your Current Stock is running Out. Plase add Stock " class="notification">
-                    <i class="fa fa-bell" aria-hidden="true"></i><span>Stock Notification</span>
+                <li class="createsurvey {{ isact_notification }}">
+                    <a href="{% url 'notification_list' %}" class="notification">
+                    <i class="fa fa-bell" aria-hidden="true"></i><span>Notifications</span>
                     {% if total <= 100 %}
                         &nbsp;&nbsp;<span class="badge" style="color:white; background-color: red;">1</span>
                     {% endif %}
@@ -142,9 +142,9 @@
                     <a href="{% url 'home' %}"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
                 </li>
 
-                <li class="createsurvey ">
-                    <a href="#"  data-container="body" data-toggle="popover" data-placement="right" data-content="Your Current Stock is running Out. Plase add Stock " class="notification">
-                    <i class="fa fa-bell" aria-hidden="true"></i><span>Stock Notification</span>
+                <li class="createsurvey {{ isact_notification }}">
+                    <a href="{% url 'notification_list' %}" class="notification">
+                    <i class="fa fa-bell" aria-hidden="true"></i><span>Notifications</span>
                     {% if total <= 100 %}
                         &nbsp;&nbsp;<span class="badge" style="color:white; background-color: red;">1</span>
                     {% endif %}
@@ -183,9 +183,9 @@
                     <a href="{% url 'home' %}"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
                 </li>
 
-                <li class="createsurvey ">
-                    <a href="#"  data-container="body" data-toggle="popover" data-placement="right" data-content="Your Current Stock is running Out. Plase add Stock " class="notification">
-                    <i class="fa fa-bell" aria-hidden="true"></i><span>Stock Notification</span>
+                <li class="createsurvey {{ isact_notification }}">
+                    <a href="{% url 'notification_list' %}" class="notification">
+                    <i class="fa fa-bell" aria-hidden="true"></i><span>Notifications</span>
                     {% if total <= 100 %}
                         &nbsp;&nbsp;<span class="badge" style="color:white; background-color: red;">1</span>
                     {% endif %}

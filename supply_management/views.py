@@ -284,6 +284,10 @@ def add_labour_request(request):
     if request.method == "POST":
         quantity = request.POST.get("quantity")
         labour_type = request.POST.get("labour_type")
+        author= request.user
+        name = ('Notification from site manager ' + '|' + 'please check the requirment,' + '|' + 'labour type :' + labour_type + '|' + 'Quantity:' + quantity)
+        noti_obj = Notification(name=name)
+        noti_obj.save()
         obj= LabourRequest(quantity=quantity,labour_type=labour_type)
         obj.save()
         messages.success(request, "Your Request Sent Successfully To Labour Manager")
@@ -1220,6 +1224,10 @@ def stock_request_to_supplier(request):
         material_type = request.POST.get("material_type")
         quantity = request.POST.get("quantity")
         description = request.POST.get("description")
+
+        name = ('Notification from '+stock_manager_name+ '|'+'Stock is Running Out,please check the requirment,'+'|'+'material type :'+material_type+'|'+'Quantity:'+quantity+'|'+'Update Message :'+description)
+        noti_obj = Notification(name=name)
+        noti_obj.save()
         obj = SuppluStockUpdate(stock_manager_name=stock_manager_name,material_type=material_type,quantity=quantity,description=description)
         obj.save()
         messages.success(request, "Your request Sent to The Supplier Manager, please Wait For Response")
@@ -1268,3 +1276,9 @@ def notification_list(request):
         "isact_notification":"active"
     }
     return render(request, "notification/notification_list.html", context)
+
+def remove_notification(request,id):
+    obj = get_object_or_404(Notification, id=id)
+    obj.delete()
+    messages.success(request, "Notification remove Successfully")
+    return redirect('notification_list')
