@@ -61,7 +61,7 @@ urlpatterns = [
 
     path('cost_estimation/<int:id>/', views.cost_estimation_details, name="cost_estimation"),
     path('cost_estimation_pdf/', views.cost_estimation_pdf_view, name='cost_pdf_view'),
-    path('cost_estimation_pdf_download/', views.cost_estimation_pdf_download.as_view(), name='cost_pdf_download'),
+    #path('cost_estimation_pdf_download/', views.cost_estimation_pdf_download.as_view(), name='cost_pdf_download'),
     path('estimate/', views.estimate, name='estimate'),
 
 
