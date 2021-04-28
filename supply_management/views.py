@@ -592,6 +592,9 @@ def estimate(request):
     cons_obj=ConstructionSite.objects.all()
     if request.user.is_authenticated:
         obj = CostEstimation.objects.last()
+        if obj == None:
+            obj=0
+
         context = {
             'cons_obj':cons_obj,
             'obj': obj,

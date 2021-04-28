@@ -33,9 +33,11 @@
                                 <div class="col-lg-offset-6">
                                     <a class="mr-2  btn btn-primary btn-sm float-right" href="{% url 'site_manager_request_list' filter='Rejected' %}"><i class="fa fa-list" style="color:#fff;"></i>&nbsp;Rejected</a>
                                 </div>
+                                {% ifnotequal request.user.user_info.first.role 3 %}
                                 <div class="col-lg-offset-6">
                                     <a class="mr-2  btn btn-primary btn-sm float-right" href="{% url 'site_manager_request' %}"><i class="fa fa-plus-circle" style="color:#007bff;"></i>&nbsp;Add New Request</a>
                                 </div>
+                                {% endifnotequal %}
                             </div>
                         </div>
                     </div>

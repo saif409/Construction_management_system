@@ -186,8 +186,7 @@ class CostEstimation(models.Model):
     constrcution_site = models.ForeignKey(ConstructionSite, models.CASCADE)
     area = models.IntegerField(default=0)
 
-    def __str__(self):
-        return self.area
+
 
 
 class CementPrice(models.Model):

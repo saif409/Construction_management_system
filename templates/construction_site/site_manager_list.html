@@ -26,12 +26,12 @@
                             <div class="row align-items-center">
                                 <div class="col-12">
                                     <div class="col-lg-offset-6">
-
+                                    {% ifnotequal request.user.user_info.first.role  4 %}
                                         <a class="mr-2 btn btn-primary btn-sm float-right"
                                            href="{% url 'add_new_construction_site' %}">
                                             Add New Construction Site
                                         </a>
-
+                                    {% endifnotequal %}
                                     </div>
                                 </div>
                             </div>
@@ -71,9 +71,11 @@
                                         <td style="width: 10%">
                                             <div class="btn-group">
                                                     <a href="{% url 'update_construction_site' id=c.id %}" style="margin-right: 5px;"><button class="btn btn-info fa fa-edit"></button></a>
+                                                    {% ifnotequal request.user.user_info.first.role  4 %}
                                                     <a href="" data-toggle="modal" id="{{ c.id }}" data-target="#surve_delete{{ c.id }}">
                                                         <button class="btn btn-danger fa fa-trash"></button>
                                                     </a>
+                                                    {% endifnotequal %}
                                             </div>
                                         </td>
                                     </tr>

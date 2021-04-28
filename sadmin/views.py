@@ -7,7 +7,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.core.mail import send_mail
-from supply_management.models import Stock, SiteManageger,Author,Labour,Client
+from supply_management.models import Stock, SiteManageger, Author, Labour, Client, Supplier, Supply
 
 
 # Create your views here.
@@ -53,9 +53,11 @@ def home(request):
         total_quantity = 0
     total = total_quantity - total_quantity_site
     client_obj = Client.objects.all()[::-1]
+    suply_obj = Supply.objects.all()[::-1]
 
     context={
         "obj":stock_obj,
+        "suply_obj": suply_obj,
         "total_employee":total_employee,
         "total_labour":total_labour,
         "total_client":total_client,

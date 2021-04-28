@@ -70,13 +70,17 @@
                             <div class="col-12">
 
                                 {% ifequal request.user.user_info.first.role  4 %}
-                                    <div class="col-lg-offset-6">
-                                        <a class="mr-2  btn btn-primary btn-sm float-right"
-                                           href="{% url 'site_manager_request_list' filter="Pending" %}"><i class="fa fa-list" style="color:#fff;"></i>&nbsp;Request from Site manager</a>
-                                    </div>
-                                    <div class="col-lg-offset-6">
+{#                                    <div class="col-lg-offset-6">#}
+{#                                        <a class="mr-2  btn btn-primary btn-sm float-right"#}
+{#                                           href="{% url 'site_manager_request_list' filter="Pending" %}"><i class="fa fa-list" style="color:#fff;"></i>&nbsp;Request from Site manager</a>#}
+{#                                    </div>#}
+{#                                    <div class="col-lg-offset-6">#}
+{#                                    <a class="mr-2  btn btn-primary btn-sm float-right"#}
+{#                                       href="{% url 'stock_request_to_supplier' %}">Stock Request To Supplier</a>#}
+{#                                </div>#}
+                                <div class="col-lg-offset-6">
                                     <a class="mr-2  btn btn-primary btn-sm float-right"
-                                       href="{% url 'stock_request_to_supplier' %}">Stock Request To Supplier</a>
+                                       href="{% url 'add_new_stock' %}"><i class="fa fa-plus-circle" style="color:#fff;"></i>&nbsp;&nbsp;Add New Stock</a>
                                 </div>
                                 {% endifequal %}
 
