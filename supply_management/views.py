@@ -455,7 +455,7 @@ def update_stock(request, id):
 
 def stock_management(request):
     if request.user.is_authenticated:
-        obj = StockManagement.objects.all()
+        obj = SiteManageger.objects.all().filter(is_approve=1)[::-1]
         context={
             "obj":obj,
             'isact_stockmanagement': 'active',
