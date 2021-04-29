@@ -118,6 +118,7 @@ class Invoice(models.Model):
     supply_details = models.ForeignKey(Supply, on_delete=models.CASCADE)
     payment = models.CharField(max_length=200)
     due = models.CharField(max_length=200)
+    created_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.payment

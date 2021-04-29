@@ -1,0 +1,81 @@
+{% include 'header.html' %}
+{% load static %}
+
+
+
+<div class="main-content" id="panel" style="margin-top:5px;">
+    <div class="col-lg-12">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert alert-primary" {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                {{ message}}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+
+<div class="container-fluid mt--6" style="margin-top:30px; padding-bottom: 50px">
+        <div class="row">
+            <div class="col-xl-12 order-xl-1">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <h3 class="mb-0">Add Invoice</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="pl-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Supplier Company&nbsp;<span style="color:red;">*</span></label>
+
+                                            <select name="supply_details" class="form-control" >
+                                                {% for sup_obj in sup_obj %}
+                                                    <option value="{{ sup_obj.id }}">{{ sup_obj.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>payment&nbsp;<span style="color:red;">*</span></label>
+                                            <input type="number" name="payment" id="input-country" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>due&nbsp;<span style="color:red;">*</span></label>
+                                            <input type="number" name="due" id="input-country" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+                               <button class="btn btn-primary float-right" type="submit" style="">Create</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+{% include 'footer.html' %}
+
+
+
+

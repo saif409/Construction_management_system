@@ -17,7 +17,7 @@ from xhtml2pdf import pisa
 from .models import Supply, Supplier, Stock, Material, Labour, LabourTypes, StockManagement, ConstructionSite, \
     LabourWorkTime, Client, Author, SiteManageger, CostEstimation, CementPrice, SteelPrice, BricksPrice, AggregatePrice, \
     SandPrice, FlooringPrice, PaintingPrice, SanitaryFittingsPrice, ElectricFittingPrice, LabourPrice, \
-    SuppluStockUpdate, LabourRequest
+    SuppluStockUpdate, LabourRequest, Invoice
 
 
 # Create your views here.
@@ -1267,3 +1267,43 @@ def remove_notification(request,id):
     obj.delete()
     messages.success(request, "Notification remove Successfully")
     return redirect('notification_list')
+
+
+def invoice_list(request):
+    obj = Invoice.objects.all()[::-1]
+    context={
+        "obj":obj
+    }
+    return render(request, "invoice/invoice_list.html",context)
+
+
+def add_new_invoice(request):
+    sup_obj =Supplier.objects.all()
+    context={
+        "sup_obj":sup_obj
+    }
+    if request.method == "POST":
+        supply_details_obj = request.POST.get("supply_details")
+        print(supply_details_obj)
+        supply_details = Supply.objects.get(id=supply_details_obj)
+        payment = request.POST.get("payment")
+        due = request.POST.get("due")
+        obj = Invoice(supply_details=supply_details,payment=payment,due=due)
+        obj.save()
+        messages.success(request, "Invoice Add Successfully")
+        return redirect('invoice_list')
+    return render(request, "invoice/add_new_invoice.html", context)
+
+
+def invoice_details(request, id):
+    obj = get_object_or_404(Invoice, id=id)
+    context={
+        "obj":obj
+    }
+    return render(request, "invoice/invoice_details.html", context)
+
+def invoice_remove(request, id):
+    obj = get_object_or_404(Invoice, id=id)
+    obj.delete()
+    messages.success(request, "Delete Successfully")
+    return redirect('invoice_list')

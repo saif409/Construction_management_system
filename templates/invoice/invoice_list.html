@@ -1,0 +1,91 @@
+{% include 'header.html' %}
+{% load static %}
+
+<div class="main-content" id="panel" style="margin-top:10px;">
+    {% if messages %}
+    <div class="messages" style="margin-right:32px;">
+        {% for message in messages %}
+        <div class="alert alert-primary" {% if message.tags %}
+             class="{{ message.tags }}" {% endif %}>{{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="row container-fluid">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        <div class="row align-items-center">
+                            <h4 class="text-blod" style="padding-left:20px;">Invoice List</h4>
+                        </div>
+                    </div>
+
+
+                    <div class="container-fluid mt-2">
+
+                        <a href="{% url 'add_new_invoice' %}"><button class="btn btn-primary btn-sm ">Add New Invoice</button></a>
+                        <div class="table-responsive mt-3">
+
+                                <table class="table align-items-center table-flush" id="list">
+                                    <thead class="thead-light mt-4">
+                                    <tr>
+                                        <th data-sort="name">Sl no</th>
+                                        <th data-sort="name">Supplier Company Name</th>
+                                        <th data-sort="name">Payment Amount</th>
+                                        <th data-sort="name">Due</th>
+                                        <th data-sort="name">Date</th>
+                                        <th data-sort="name">Action</th>
+
+
+                                    </tr>
+                                    </thead>
+                                    <tbody class="list">
+                                    {% for obj in obj %}
+                                    <tr>
+                                        <th scope="row"><span class="name mb-0 text-sm">{{ forloop.counter }}</span></th>
+                                        <td>
+                                            <span class="status">{{ obj.supply_details }}</span><br>
+                                        </td>
+                                        <td>
+                                            <span class="status">{{ obj.payment }}</span><br>
+
+                                        </td>
+                                        <td>
+                                            <span class="status">{{ obj.due }}</span>
+                                        </td>
+                                        <td>
+                                            <span class="status">{{ obj.created_date }}</span>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'invoice_details' id=obj.id %}"><button class="btn btn-info btn-sm"><i class="fa fa-eye"></i></button></a>
+                                            <a href="{% url 'invoice_remove' id=obj.id %}"><button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></a>
+
+                                        </td>
+
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+<script>
+    $(document).ready(function (){
+         $('#list').DataTable(
+             {
+            "ordering":false
+            }
+        )
+    })
+</script>
+
+
