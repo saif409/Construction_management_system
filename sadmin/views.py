@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.core.mail import send_mail
 from supply_management.models import Stock, SiteManageger, Author, Labour, Client, Supplier, Supply
-
+from construction_management.utils import current_year,current_month,today
 
 # Create your views here.
 
@@ -39,6 +39,10 @@ def user_logout(request):
 
 
 def home(request):
+    day = today()
+    month=current_month()
+    year= current_year()
+
     total_employee = Author.objects.all().count()
     total_labour = Labour.objects.all().count()
     total_client = Client.objects.all().count()
@@ -47,6 +51,21 @@ def home(request):
 
     site_obj = SiteManageger.objects.filter(is_approve=1)
     total_quantity_site = site_obj.aggregate(Sum('quantity'))['quantity__sum']
+
+
+    daily_stock = Stock.objects.all().filter(created_date=day).aggregate(Sum('quantity'))['quantity__sum']
+    if daily_stock is None:
+        daily_stock = 0
+
+    monthly_stock = Stock.objects.all().filter(created_date__month=month).aggregate(Sum('quantity'))['quantity__sum']
+    if monthly_stock is None:
+        monthly_stock = 0
+
+    yearly_stock = Stock.objects.all().filter(created_date__year=year).aggregate(Sum('quantity'))['quantity__sum']
+    if yearly_stock is None:
+        yearly_stock = 0
+
+
     if total_quantity_site is None:
         total_quantity_site = 0
     if total_quantity is None:
@@ -56,6 +75,12 @@ def home(request):
     suply_obj = Supply.objects.all()[::-1]
 
     context={
+        'daily_stock':daily_stock,
+        'monthly_stock':monthly_stock,
+        'yearly_stock':yearly_stock,
+        'day':today,
+        'month' : current_month(),
+        'year':  current_year(),
         "obj":stock_obj,
         "suply_obj": suply_obj,
         "total_employee":total_employee,

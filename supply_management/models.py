@@ -59,9 +59,10 @@ class Supply(models.Model):
 class Stock(models.Model):
     material = models.ForeignKey(Material, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
-    quantity = models.CharField(max_length=200)
+    quantity = models.IntegerField()
     update_date = models.DateField(auto_now=True)
     update_by = models.CharField(max_length=200)
+    created_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.name

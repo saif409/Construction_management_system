@@ -105,6 +105,9 @@ urlpatterns = [
     path('add_new_request_stock', views.add_new_request_stock, name='add_new_request_stock'),
 
 
+    path('report-generation/<str:filter>/', views.report_generation, name='report_generation'),
+
+
 
 
 ]

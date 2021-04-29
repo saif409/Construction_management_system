@@ -1,0 +1,107 @@
+
+{% include 'header.html' %}
+{% load static %}
+{% if messages %}
+    <div class="messages" style="margin-right:32px;">
+        {% for message in messages %}
+            <div class="alert alert-primary" {% if message.tags %}
+                 class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<div class="row" >
+
+    <div class="row container-fluid" style="margin-top:30px;">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-info hidden-print">
+                    <h4>Stock Report</h4>
+                </div>
+
+                <div class="card-body">
+                    <section class="content">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12">
+
+                                    <!-- Main content -->
+                                <a href="{% url 'report_generation' filter='Daily_Report' %}"><button class="btn btn-primary">Daily Stock Report</button></a>
+                                                <a href="{% url 'report_generation' filter='Monthly_Report' %}"><button class="btn btn-primary">Monthly Stock Report</button></a>
+                                                <a href="{% url 'report_generation' filter='Yearly_Report' %}"><button class="btn btn-primary">Yearly Stock Report</button></a>
+                                    <div class="invoice p-3 mb-3">
+                                        <div class="row">
+                                            <div class="col-12 table-responsive">
+
+                                                <table class="table table-striped" id="invoice">
+                                                    <thead>
+                                                    <tr>
+
+                                                        <th>Material</th>
+                                                        <th>name</th>
+                                                        <th>Quantity</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for obj in obj %}
+                                                    <tr>
+                                                        <td>{{ obj.material }}</td>
+                                                        <td>{{ obj.name }}</td>
+                                                        <td>{{ obj.quantity }}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                                <div id="editor"></div>
+                                            </div>
+                                            <!-- /.col -->
+                                        </div>
+
+                                        <div class="row no-print">
+                                            <div class="col-12">
+                                                <button type="button" class="btn btn-primary float-right hidden-print" style="margin-right: 5px;" id="btnPrint">
+                                                    <i class="fa fa-download"></i><a href="" style="color:white" id="btnPrint" > Print Now</a>
+                                                </button>
+                                                <button type="button" class="btn btn-primary float-right hidden-print" style="margin-right: 5px;" id="download">
+                                                    <i class="fa fa-download"></i><a href="" style="color:white" id="download" > Download PDF</a>
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.invoice -->
+                                </div><!-- /.col -->
+                            </div><!-- /.row -->
+                        </div><!-- /.container-fluid -->
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script >
+
+window.onload = function () {
+        document.getElementById("download")
+            .addEventListener("click", () => {
+                const invoice = this.document.getElementById("invoice");
+                console.log(invoice);
+                console.log(window);
+                var opt = {
+                    margin: 1,
+                    filename: 'Stock_Report.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                };
+                html2pdf().from(invoice).set(opt).save();
+            });
+        };
+        
+        const $btnPrint = document.querySelector("#btnPrint");
+        $btnPrint.addEventListener("click", () => {
+        window.print();
+        });
+    </script>
+{% include 'footer.html' %}

@@ -6,6 +6,8 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.views.generic.base import View
 from django.contrib.auth.decorators import login_required
+
+from construction_management.utils import today, current_month, current_year, last_seven_days
 from sadmin.models import Notification
 # for Pdf views
 # for pff import 
@@ -548,10 +550,15 @@ def add_new_client(request):
             date_of_birth = request.POST.get("date_of_birth")
             nid_number = request.POST.get("nid_number")
             photo = request.FILES.get("photo")
-            obj = Client(name=name,phone=phone,email=email,address=address,emergency_contact=emergency_contact,date_of_birth=date_of_birth,nid_number=nid_number,photo=photo)
-            obj.save()
-            messages.success(request, "New Client Added Successfully")
-            return redirect('client_list')
+            user = Client.objects.all().filter(email=email, phone=phone,nid_number=nid_number)
+            if user.exists():
+                messages.success(request, "Client Already Exits!!")
+                return redirect('add_new_client')
+            else:
+                obj = Client(name=name,phone=phone,email=email,address=address,emergency_contact=emergency_contact,date_of_birth=date_of_birth,nid_number=nid_number,photo=photo)
+                obj.save()
+                messages.success(request, "New Client Added Successfully")
+                return redirect('client_list')
         return render(request, "client/add_new_client.html",context)
     else:
         return redirect('login')
@@ -1310,7 +1317,7 @@ def invoice_remove(request, id):
 
 
 def request_stock(request):
-    obj = RequestStock.objects.all()
+    obj = RequestStock.objects.all()[::-1]
     context={
         "obj":obj
     }
@@ -1326,3 +1333,46 @@ def add_new_request_stock(request):
         stock_obj.save()
         messages.success(request, "Stock request send Successfully")
     return render(request, "requeststock/add_new_request_stock.html")
+
+
+def report_generation(request, filter):
+    day = today()
+    month = current_month()
+    year = current_year()
+
+    daily_stock = Stock.objects.all().filter(created_date=day).aggregate(Sum('quantity'))['quantity__sum']
+    if daily_stock is None:
+        daily_stock = 0
+
+    monthly_stock = Stock.objects.all().filter(created_date__month=month).aggregate(Sum('quantity'))['quantity__sum']
+    if monthly_stock is None:
+        monthly_stock = 0
+
+    yearly_stock = Stock.objects.all().filter(created_date__year=year).aggregate(Sum('quantity'))['quantity__sum']
+    if yearly_stock is None:
+        yearly_stock = 0
+    obj = None
+    if filter == 'Report':
+        obj = Stock.objects.all()[:15][::-1]
+    elif filter == 'Daily_Report':
+        obj = Stock.objects.all().filter(created_date=day)[::-1]
+
+    elif filter == 'Monthly_Report':
+        obj = Stock.objects.all().filter(created_date__month=month)[::-1]
+
+    elif filter == 'Yearly_Report':
+        obj = Stock.objects.all().filter(created_date__year=year)[::-1]
+
+
+
+    context={
+        'obj':obj,
+        'day': today,
+        'month': current_month(),
+        'year': current_year(),
+        "isact_report":"active",
+        'daily_stock': daily_stock,
+        'monthly_stock': monthly_stock,
+        'yearly_stock': yearly_stock,
+    }
+    return render(request, 'report_generation.html', context)
