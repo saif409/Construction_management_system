@@ -111,3 +111,9 @@
     width: 100%;
   }
 }
+@media print {
+  .hidden-print,
+  .hidden-print * {
+      display: none !important;
+  }
+}
