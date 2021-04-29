@@ -1,10 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% include 'header.html' %}
+{% load static %}
 
-</body>
-</html>
+<div class="main-content" id="panel" style="margin-top:10px;">
+    {% if messages %}
+    <div class="messages" style="margin-right:32px;">
+        {% for message in messages %}
+        <div class="alert alert-primary" {% if message.tags %}
+             class="{{ message.tags }}" {% endif %}>{{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+
+    <div class="row">
+        <div class="container-fluid">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        <div class="row align-items-center">
+                            <h4 class="text-blod" style="padding-left:20px;">Stock Request List</h4>
+                        </div>
+                    </div>
+
+
+                    <div class="container-fluid mt-2">
+
+                        <div class="table-responsive">
+
+                            <table class="table align-items-center table-flush" id="list">
+                                <thead class="thead-light mt-4">
+                                <tr>
+                                    <th data-sort="name">Sl no</th>
+                                    <th data-sort="name">Material</th>
+                                    <th data-sort="name">Type</th>
+                                    <th data-sort="name">Quantity</th>
+{#                                    <th>Action</th>#}
+                                </tr>
+                                </thead>
+                                <tbody class="list">
+                                {% for obj in obj %}
+                                <tr>
+                                    <th scope="row"><span class="name mb-0 text-sm">{{ forloop.counter }}</span>
+                                    </th>
+                                    <td>
+                                        <span class="status">{{ obj.material }}</span><br>
+                                        <small style="color:#fff;background-color:#e8583f;border-radius: 10px;padding-left:5px;padding-right:5px;">{{ obj.created_date}}</small>
+                                    </td>
+                                    <td>
+                                        <span class="status">{{ obj.name }}</span><br>
+                                    </td>
+                                    <td>
+                                        <span class="status">{{ obj.quantity }}</span>
+                                    </td>
+
+{#                                    <td style="width: 10%">#}
+{#                                        <div class="btn-group">#}
+{#                                            <a href="{% url 'remove_stock' id=obj.id %}" style="margin-right: 5px;">#}
+{#                                                <button class="btn btn-danger fa fa-trash"></button>#}
+{#                                            </a>#}
+{#                                        </div>#}
+{#                                    </td>#}
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+<script>
+    $(document).ready(function (){
+         $('#list').DataTable(
+             {
+            "ordering":false
+            }
+        )
+    })
+</script>
+

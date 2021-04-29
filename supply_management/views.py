@@ -1310,7 +1310,7 @@ def invoice_remove(request, id):
 
 
 def request_stock(request):
-    obj = RequestStock.objects.all()[::-1]
+    obj = RequestStock.objects.all()
     context={
         "obj":obj
     }

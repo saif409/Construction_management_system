@@ -70,6 +70,7 @@ class RequestStock(models.Model):
     material =  models.CharField(max_length=200)
     name = models.CharField(max_length=200)
     quantity = models.CharField(max_length=200)
+    created_date = models.DateField(auto_now_add=True)
 
 
 class Client(models.Model):
