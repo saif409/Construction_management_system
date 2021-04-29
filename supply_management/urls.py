@@ -98,7 +98,7 @@ urlpatterns = [
 
     path('invoice_list', views.invoice_list, name='invoice_list'),
     path('add_new_invoice', views.add_new_invoice, name='add_new_invoice'),
-    path('invoice_details<int:id>/', views.invoice_details, name='invoice_details'),
+    path('invoice_details/<int:id>/', views.invoice_details, name='invoice_details'),
     path('invoice_remove<int:id>/', views.invoice_remove, name='invoice_remove'),
 
 
