@@ -101,6 +101,9 @@ urlpatterns = [
     path('invoice_details/<int:id>/', views.invoice_details, name='invoice_details'),
     path('invoice_remove<int:id>/', views.invoice_remove, name='invoice_remove'),
 
+    path('request_stock', views.request_stock, name='request_stock'),
+    path('add_new_request_stock', views.add_new_request_stock, name='add_new_request_stock'),
+
 
 
 

@@ -93,6 +93,10 @@
                                         <a class="mr-2  btn btn-primary btn-sm float-right"
                                            href="{% url 'site_manager_request_list' filter="Pending" %}"><i class="fa fa-list" style="color:#fff;"></i>&nbsp;Request from Site manager</a>
                                     </div>
+                                <div class="col-lg-offset-6">
+                                        <a class="mr-2  btn btn-primary btn-sm float-right"
+                                           href="{% url 'add_new_request_stock' %}"><i class="fa fa-list" style="color:#fff;"></i>&nbsp;Request for Stock</a>
+                                    </div>
 
                             {% endifnotequal %}
                             </div>

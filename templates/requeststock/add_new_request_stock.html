@@ -1,0 +1,40 @@
+{% include 'header.html' %}
+{% load static %}
+<div class="container-fluid" style="margin-top: 20px;">
+    <div class="card">
+
+        <div class="card-header bg-primary">
+            <h3>Add New Stock Request</h3>
+        </div>
+        <div class="card-header">
+            <form method="POST">
+                {% csrf_token %}
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <th>Material</th>
+                        <td>
+                            <input type="text" class="form-control" name="material"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Type</th>
+                        <td><input type="text" class="form-control" name="name"/></td>
+                    </tr>
+                    <tr>
+                        <th>Quantity</th>
+                        <td><input class="form-control" type="text" name="quantity"/>
+                        </td>
+                    </tr>
+
+                    </tbody>
+
+
+                </table>
+                <button class="btn btn-primary float-right" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}

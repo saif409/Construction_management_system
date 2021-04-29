@@ -66,6 +66,11 @@ class Stock(models.Model):
     def __str__(self):
         return self.name
 
+class RequestStock(models.Model):
+    material =  models.CharField(max_length=200)
+    name = models.CharField(max_length=200)
+    quantity = models.CharField(max_length=200)
+
 
 class Client(models.Model):
     name = models.CharField(max_length=200)

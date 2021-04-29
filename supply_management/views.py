@@ -17,7 +17,7 @@ from xhtml2pdf import pisa
 from .models import Supply, Supplier, Stock, Material, Labour, LabourTypes, StockManagement, ConstructionSite, \
     LabourWorkTime, Client, Author, SiteManageger, CostEstimation, CementPrice, SteelPrice, BricksPrice, AggregatePrice, \
     SandPrice, FlooringPrice, PaintingPrice, SanitaryFittingsPrice, ElectricFittingPrice, LabourPrice, \
-    SuppluStockUpdate, LabourRequest, Invoice
+    SuppluStockUpdate, LabourRequest, Invoice, RequestStock
 
 
 # Create your views here.
@@ -769,7 +769,7 @@ def register_surveyor(request):
             description = request.POST.get("description")
             graduation_subject = request.POST.get("graduation_subject")
             university = request.POST.get("university")
-            user = User.objects.all().filter(username=uname)
+            user = Author.objects.all().filter(email=email,phone=phone)
             if user :
                 messages.success(request, "User Already Exits")
                 return redirect('register_surveyor')
@@ -1307,3 +1307,22 @@ def invoice_remove(request, id):
     obj.delete()
     messages.success(request, "Delete Successfully")
     return redirect('invoice_list')
+
+
+def request_stock(request):
+    obj = RequestStock.objects.all()[::-1]
+    context={
+        "obj":obj
+    }
+    return render(request, "requeststock/request_stock_list.html",context)
+
+
+def add_new_request_stock(request):
+    if request.method == "POST":
+        material = request.POST.get("material")
+        name = request.POST.get("name")
+        quantity = request.POST.get("quantity")
+        stock_obj = RequestStock(name=name, material=material, quantity=quantity)
+        stock_obj.save()
+        messages.success(request, "Stock request send Successfully")
+    return render(request, "requeststock/add_new_request_stock.html")
