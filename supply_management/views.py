@@ -1278,14 +1278,14 @@ def invoice_list(request):
 
 
 def add_new_invoice(request):
-    sup_obj =Supplier.objects.all()
+    sup_obj =Supply.objects.all()
     context={
         "sup_obj":sup_obj
     }
     if request.method == "POST":
         supply_details_obj = request.POST.get("supply_details")
-        print(supply_details_obj)
         supply_details = Supply.objects.get(id=supply_details_obj)
+        print(supply_details)
         payment = request.POST.get("payment")
         due = request.POST.get("due")
         obj = Invoice(supply_details=supply_details,payment=payment,due=due)

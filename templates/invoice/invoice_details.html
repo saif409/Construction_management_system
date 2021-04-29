@@ -11,7 +11,7 @@
 
 
 
-<div class="card">
+<div class="card" id="invoice">
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="card-header bg-primary">
@@ -123,7 +123,16 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href=""><button class="btn btn-primary ">Download</button></a>
+{#                                <a href=""><button class="btn btn-primary float-right" id="download">Download</button></a>#}
+{#                               #}
+                                <div class="row no-print">
+                                    <div class="col-12">
+                                        <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;" id="download">
+                                        <i class="fa fa-download"></i><a href="" style="color:white" id="download" > Download PDF</a>
+                                        </button>
+
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -136,4 +145,20 @@
 
 {% include 'footer.html' %}
 
-
+<script >
+window.onload = function () {
+document.getElementById("download")
+    .addEventListener("click", () => {
+        const invoice = this.document.getElementById("invoice");
+        console.log(invoice);
+        console.log(window);
+        var opt = {
+            margin: 1,
+            filename: 'costEstimation.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+        html2pdf().from(invoice).set(opt).save();
+    })
+</script>

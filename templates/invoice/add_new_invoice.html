@@ -40,7 +40,7 @@
 
                                             <select name="supply_details" class="form-control" >
                                                 {% for sup_obj in sup_obj %}
-                                                    <option value="{{ sup_obj.id }}">{{ sup_obj.name }}</option>
+                                                    <option value="{{ sup_obj.id }}">{{ sup_obj.supplier_company_name }}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>
