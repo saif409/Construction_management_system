@@ -50,6 +50,7 @@
                                     <thead class="thead-light mt-4">
                                     <tr>
                                         <th data-sort="name">Sl no</th>
+                                        <th data-sort="name">Constructuion Site</th>
                                         <th data-sort="name">Manager Name</th>
                                         <th data-sort="name">Category</th>
                                         <th data-sort="name">Material</th>
@@ -61,6 +62,9 @@
                                     {% for obj in obj %}
                                     <tr>
                                         <th scope="row"><span class="name mb-0 text-sm">{{ forloop.counter }}</span></th>
+                                        <td>
+                                            <span class="status">{{ obj.construction_site}}</span><br>
+                                        </td>
                                         <td>
                                             <span class="status">{{ obj.site_manager}}</span><br>
                                             <small style="color:#fff;background-color:#e8583f;border-radius: 10px;padding-left:5px;padding-right:5px;">{{ obj.created_at }}</small>
@@ -83,7 +87,9 @@
                                         </td>
                                         <td style="width: 10%">
                                             <div class="btn-group">
+                                                {% ifnotequal request.user.user_info.first.role  4 %}
                                                 <a href="{% url 'site_manager_update' id=obj.id %}" style="margin-right: 5px;"><button class="btn btn-info fa fa-edit"></button></a>
+                                                {% endifnotequal %}
                                                 <a href="{% url 'remove_stock_management' id=obj.id %}" style="margin-right: 5px;"><button class="btn btn-danger fa fa-trash"></button></a>
                                             </div>
                                         </td>

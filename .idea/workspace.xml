@@ -5,9 +5,12 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/supply_management/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/supply_management/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/supply_management/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/supply_management/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/cost_estimation/cost_pdf_view.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/construction_site/add_new_construction_site.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/construction_site/add_new_construction_site.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/header.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/requeststock/request_stock_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/requeststock/request_stock_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/invoice/invoice_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/invoice/invoice_details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/stock/site_manager_request.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/stock/site_manager_request.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/stock/site_manager_request_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/stock/site_manager_request_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/surveyor/register_surveyor.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/surveyor/register_surveyor.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +23,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Python Script" />
         <option value="HTML File" />
       </list>
     </option>
@@ -122,7 +126,8 @@
       <workItem from="1619676971548" duration="3131000" />
       <workItem from="1619686922226" duration="4350000" />
       <workItem from="1619702318354" duration="5139000" />
-      <workItem from="1619717431327" duration="329000" />
+      <workItem from="1619717431327" duration="7707000" />
+      <workItem from="1619792139452" duration="4957000" />
     </task>
     <servers />
   </component>

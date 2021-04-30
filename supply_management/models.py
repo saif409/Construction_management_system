@@ -161,6 +161,7 @@ class Author(models.Model):
     area = models.CharField(max_length=100)
     phone = models.CharField(max_length=100)
     description = models.TextField()
+    nid = models.CharField(max_length=200)
     designation = models.CharField(max_length=100)
     experience = models.CharField(max_length=200)
     role = models.IntegerField(choices=ROLE_CHOICES, null=True, default=3)
@@ -179,6 +180,7 @@ STATUS_CHOICES_SiteManageder = (
 
 
 class SiteManageger(models.Model):
+    construction_site = models.ForeignKey(ConstructionSite, on_delete=models.CASCADE)
     category = models.CharField(max_length=200)
     material = models.CharField(max_length=200)
     quantity = models.IntegerField()
@@ -193,8 +195,6 @@ class SiteManageger(models.Model):
 class CostEstimation(models.Model):
     constrcution_site = models.ForeignKey(ConstructionSite, models.CASCADE)
     area = models.IntegerField(default=0)
-
-
 
 
 class CementPrice(models.Model):

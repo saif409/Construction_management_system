@@ -771,16 +771,27 @@ def register_surveyor(request):
             email = request.POST.get("email")
             area = request.POST.get("area")
             phone = request.POST.get("phone")
+            nid = request.POST.get("nid")
             designation = request.POST.get("designation")
             experience = request.POST.get("experience")
             description = request.POST.get("description")
             graduation_subject = request.POST.get("graduation_subject")
             university = request.POST.get("university")
-            user = Author.objects.all().filter(email=email,phone=phone)
-            if user :
-                messages.success(request, "User Already Exits")
+            user_email = Author.objects.all().filter(email=email)
+            user_phone = Author.objects.all().filter(phone=phone)
+            user_nid= Author.objects.all().filter(nid=nid)
+
+            if user_email :
+                messages.success(request, "User Email Already Exits")
+                return redirect('register_surveyor')
+            elif user_phone :
+                messages.success(request, "User Phone Already Exits")
+                return redirect('register_surveyor')
+            elif user_nid :
+                messages.success(request, "User Nid Already Exits")
                 return redirect('register_surveyor')
             else :
+
                 auth_info={
                     'first_name': fname,
                     'last_name': lname,
@@ -925,17 +936,21 @@ def site_manager_request_list(request, filter):
 
 
 def site_manager_request(request):
+    cons_obj = ConstructionSite.objects.all()
     if request.user.is_authenticated:
         if request.method == "POST":
+            construction_site_obj = request.POST.get("construction_site")
+            construction_site = ConstructionSite.objects.get(location=construction_site_obj)
             category = request.POST.get("category")
             material = request.POST.get("material")
             quantity = request.POST.get("quantity")
-            manager_obj = SiteManageger(category=category, material=material, quantity=quantity, site_manager=request.user)
+            manager_obj = SiteManageger(construction_site=construction_site,category=category, material=material, quantity=quantity, site_manager=request.user)
             manager_obj.save()
             messages.success(request, "Your Request Send to our Admin, Please Wait for his approval")
             return redirect('site_manager_request_list', filter='Pending')
         context={
             "isact_site_manager": "active",
+            "cons_obj":cons_obj
         }
         return render(request, "stock/site_manager_request.html", context)
     else:
@@ -1155,12 +1170,22 @@ def add_new_construction_site(request):
         architect_reg_no = request.POST.get("architect_reg_no")
         starting_date = request.POST.get("starting_date")
         end_date = request.POST.get("end_date")
-        obj = ConstructionSite(client=client, location=location, landarea=landarea, rajuk_no=rajuk_no,
-                               architect_name=architect_name, architect_reg_no=architect_reg_no,
-                               starting_date=starting_date, end_date=end_date)
-        obj.save()
-        messages.success(request, "New Site Added Successfully")
-        return redirect('construction_list')
+        rajuk_no_varification = ConstructionSite.objects.filter(rajuk_no=rajuk_no)
+        architect_reg_no_varification = ConstructionSite.objects.filter(architect_reg_no=architect_reg_no)
+
+        if rajuk_no_varification:
+            messages.success(request, "Rajuk No Already Exits")
+            return redirect('add_new_construction_site')
+        if architect_reg_no_varification:
+            messages.success(request, "Architect Registration No  Already Exits")
+            return redirect('add_new_construction_site')
+        else:
+            obj = ConstructionSite(client=client, location=location, landarea=landarea, rajuk_no=rajuk_no,
+                                   architect_name=architect_name, architect_reg_no=architect_reg_no,
+                                   starting_date=starting_date, end_date=end_date)
+            obj.save()
+            messages.success(request, "New Site Added Successfully")
+            return redirect('construction_list')
     return render(request, "construction_site/add_new_construction_site.html", context)
 
 
