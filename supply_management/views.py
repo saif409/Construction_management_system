@@ -944,6 +944,10 @@ def site_manager_request(request):
             category = request.POST.get("category")
             material = request.POST.get("material")
             quantity = request.POST.get("quantity")
+            name = ('Notification from Site Manager'+ '|' + 'please check the requirment,' + '|' + 'material type :' + material + '|' + 'Quantity:' + quantity + '|' + 'Category :' + category )
+            noti_obj = Notification(name=name)
+            noti_obj.save()
+
             manager_obj = SiteManageger(construction_site=construction_site,category=category, material=material, quantity=quantity, site_manager=request.user)
             manager_obj.save()
             messages.success(request, "Your Request Send to our Admin, Please Wait for his approval")
@@ -1354,6 +1358,10 @@ def add_new_request_stock(request):
         material = request.POST.get("material")
         name = request.POST.get("name")
         quantity = request.POST.get("quantity")
+        name_obj = ('Notification from Stock manager ' + '|' + 'please check the requirment,' + '|' + 'Material :' + material + '|' + 'Quantity:' + quantity + 'Type:' + name)
+        noti_obj = Notification(name=name_obj)
+        noti_obj.save()
+
         stock_obj = RequestStock(name=name, material=material, quantity=quantity)
         stock_obj.save()
         messages.success(request, "Stock request send Successfully")

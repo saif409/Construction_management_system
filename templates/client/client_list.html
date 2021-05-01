@@ -48,7 +48,9 @@
                                     <th data-sort="name">Address</th>
                                     <th data-sort="name">Emergency Contact</th>
                                     <th data-sort="name">Nid Number</th>
+                                    {% ifnotequal request.user.user_info.first.role 4 %}
                                     <th>Action</th>
+                                    {% endifnotequal %}
                                 </tr>
                                 </thead>
                                 <tbody class="list">
@@ -67,17 +69,18 @@
                                         <td><span class="status">{{ c.address }}</span></td>
                                         <td><span class="status">{{ c.emergency_contact }}</span></td>
                                         <td><span class="status">{{ c.nid_number }}</span></td>
-
+                                    {% ifnotequal request.user.user_info.first.role 4 %}
                                         <td style="width: 10%">
                                             <div class="btn-group">
+
                                                     <a href="{% url 'update_client' id=c.id %}" style="margin-right: 5px;"><button class="btn btn-info fa fa-edit"></button></a>
-                                                    {% ifnotequal request.user.user_info.first.role 4 %}
                                                     <a href="" data-toggle="modal" id="{{ c.id }}" data-target="#surve_delete{{ user.id }}">
                                                         <button class="btn btn-danger fa fa-trash"></button>
                                                     </a>
-                                                {% endifnotequal %}
+
                                             </div>
                                         </td>
+                                    {% endifnotequal %}
                                     </tr>
 
                                     <div class="modal fade" id="surve_delete{{ c.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

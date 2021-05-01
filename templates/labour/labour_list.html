@@ -67,7 +67,9 @@
                                     <th data-sort="name">Labour Name</th>
                                     <th data-sort="name">Phone</th>
                                     <th data-sort="name">Address</th>
+                                    {% ifnotequal request.user.user_info.first.role 4 %}
                                     <th>Action</th>
+                                    {% endifnotequal %}
                                 </tr>
                                 </thead>
                                 <tbody class="list">
@@ -87,7 +89,7 @@
                                         <td>
                                             <span class="status">{{ user.address }}</span>
                                         </td>
-
+                                    {% ifnotequal request.user.user_info.first.role 4 %}
                                         <td style="width: 10%">
                                             <div class="btn-group">
                                                     <a href="{% url 'labour_update' id=user.id %}" style="margin-right: 5px;"><button class="btn btn-info fa fa-edit"></button></a>
@@ -96,6 +98,7 @@
                                                     </a>
                                             </div>
                                         </td>
+                                    {% endifnotequal %}
                                     </tr>
 
                                     <div class="modal fade" id="surve_delete{{ user.id }}" tabindex="-1" role="dialog"

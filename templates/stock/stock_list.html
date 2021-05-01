@@ -114,7 +114,9 @@
                                     <th data-sort="name">Material</th>
                                     <th data-sort="name">Name</th>
                                     <th data-sort="name">Quantity</th>
+                                    {% ifnotequal request.user.user_info.first.role 4 %}
                                     <th>Action</th>
+                                    {% endifnotequal %}
                                 </tr>
                                 </thead>
                                 <tbody class="list">
@@ -132,7 +134,7 @@
                                     <td>
                                         <span class="status">{{ obj.quantity }}</span>
                                     </td>
-
+                                {% ifnotequal request.user.user_info.first.role 4 %}
                                     <td style="width: 10%">
                                         <div class="btn-group">
                                             <a href="{% url 'update_stock' id=obj.id %}" style="margin-right: 5px;">
@@ -143,6 +145,7 @@
                                             </a>
                                         </div>
                                     </td>
+                                {% endifnotequal %}
                                 </tr>
                                 {% endfor %}
                                 </tbody>

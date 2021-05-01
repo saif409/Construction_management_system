@@ -53,7 +53,7 @@ urlpatterns = [
     path('update-surveyor/<int:id>/', views.update_surveyor, name="update_surveyor"),
     path('remove-surveyor/<int:id>/', views.remove_surveyor, name="remove_surveyor"),
 
-    path('site-manager-request', views.site_manager_request, name="site_manager_request"),
+    path('site-manager-request/', views.site_manager_request, name="site_manager_request"),
     path('site-manager-request-list/<str:filter>/', views.site_manager_request_list, name="site_manager_request_list"),
     path('site-manager-request-delete/<int:id>/', views.site_manager_request_delete, name="site_manager_request_delete"),
     path('site-manager-update/<int:id>/', views.site_manager_update, name="site_manager_update"),
@@ -101,8 +101,8 @@ urlpatterns = [
     path('invoice_details/<int:id>/', views.invoice_details, name='invoice_details'),
     path('invoice_remove<int:id>/', views.invoice_remove, name='invoice_remove'),
 
-    path('request_stock', views.request_stock, name='request_stock'),
-    path('add_new_request_stock', views.add_new_request_stock, name='add_new_request_stock'),
+    path('request_stock/', views.request_stock, name='request_stock'),
+    path('add_new_request_stock/', views.add_new_request_stock, name='add_new_request_stock'),
 
 
     path('report-generation/<str:filter>/', views.report_generation, name='report_generation'),
