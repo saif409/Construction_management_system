@@ -26,12 +26,15 @@
                                 <div class="col-12">
 
                                     <!-- Main content -->
-                                <a href="{% url 'report_generation' filter='Daily_Report' %}"><button class="btn btn-primary">Daily Stock Report</button></a>
-                                                <a href="{% url 'report_generation' filter='Monthly_Report' %}"><button class="btn btn-primary">Monthly Stock Report</button></a>
-                                                <a href="{% url 'report_generation' filter='Yearly_Report' %}"><button class="btn btn-primary">Yearly Stock Report</button></a>
+                                                <a href="{% url 'report_generation' filter='Daily_Report' %}"><button class="btn btn-primary hidden-print">Daily Stock Report</button></a>
+                                                <a href="{% url 'report_generation' filter='Monthly_Report' %}"><button class="btn btn-primary hidden-print">Monthly Stock Report</button></a>
+                                                <a href="{% url 'report_generation' filter='Yearly_Report' %}"><button class="btn btn-primary hidden-print">Yearly Stock Report</button></a>
                                     <div class="invoice p-3 mb-3">
                                         <div class="row">
                                             <div class="col-12 table-responsive">
+                                            {% if 'Daily_Report' %}
+                                                <h3>Daily Report</h3>
+                                            {% endif %}
 
                                                 <table class="table table-striped" id="invoice">
                                                     <thead>
